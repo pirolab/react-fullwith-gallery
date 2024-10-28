@@ -1,0 +1,62 @@
+[
+  {
+    "leadImage": "./images/1a.jpg",
+    "title": "Embrace the Code",
+    "subtitle": "Transforming ideas into reality, one line at a time.",
+    "hash": "#coding #frontend #development"
+  },
+  {
+    "leadImage": "./images/2a.jpg",
+    "title": "Design Matters",
+    "subtitle": "Crafting user experiences that captivate and engage.",
+    "hash": "#design #ux #ui"
+  },
+  {
+    "leadImage": "./images/3a.jpg",
+    "title": "Frameworks Unite!",
+    "subtitle": "Building robust applications with powerful tools.",
+    "hash": "#frameworks #react #vue"
+  },
+  {
+    "leadImage": "./images/4a.jpg",
+    "title": "Optimize for Speed",
+    "subtitle": "Fast load times lead to happier users.",
+    "hash": "#performance #optimization #webspeed"
+  },
+  {
+    "leadImage": "./images/5a.jpg",
+    "title": "Testing is Key",
+    "subtitle": "Ensure quality and reliability in your code.",
+    "hash": "#testing #qa #software"
+  },
+  {
+    "leadImage": "./images/6a.jpg",
+    "title": "Teamwork Makes the Dream Work",
+    "subtitle": "Collaborate to innovate and excel.",
+    "hash": "#collaboration #teamwork #innovation"
+  },
+  {
+    "leadImage": "./images/7a.jpg",
+    "title": "Version Control Heroes",
+    "subtitle": "Track changes and collaborate seamlessly.",
+    "hash": "#versioncontrol #git #github"
+  },
+  {
+    "leadImage": "./images/8a.jpg",
+    "title": "Secure Your Code",
+    "subtitle": "Protect your applications from vulnerabilities.",
+    "hash": "#security #cybersecurity #bestpractices"
+  },
+  {
+    "leadImage": "./images/9a.jpg",
+    "title": "API Integration",
+    "subtitle": "Connecting services for seamless experiences.",
+    "hash": "#api #integration #services"
+  },
+  {
+    "leadImage": "./images/10a.jpg",
+    "title": "Stay Ahead of Trends",
+    "subtitle": "Adapt and evolve in the fast-paced tech world.",
+    "hash": "#trends #technology #development"
+  }
+]
