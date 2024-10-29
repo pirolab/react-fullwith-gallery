@@ -1,6 +1,6 @@
 # React/Redux image gallery
 
-Go see the [Demo](https://www.pirolab.it/react-redux-gallery/)
+Go see the [Demo](https://www.pirolab.it/new_gallery/)
 
 - react, redux 
 - css animations 
