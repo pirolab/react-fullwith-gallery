@@ -41,23 +41,19 @@ $default-z-index: 1;
 
     .rocket_block {
         position: absolute;
-        z-index: 3;
-        bottom: 74px;
+        bottom: 6.5rem;
         left: 0;
-        width: auto;
-        width: 100%;
-        height: auto;
         padding: 0;
-        text-align: center;
+        width: 100%;
         background: rgba(0, 0, 0, 0.5);
-        transition: all .6s;
+        transition: opacity .6s;
         transition-delay: .6s;
-        overflow: hidden;
+        opacity: 0;
 
         @include isTablet {
-            background: rgba(0, 0, 0, 0);
-            bottom: 99px;
-            width: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.61) 50%, rgba(0, 0, 0, 0) 100%);
+            bottom: 8.8rem;
+            width: 60%;
         }
 
         &-wrapper {
@@ -66,7 +62,7 @@ $default-z-index: 1;
             display: flex;
             flex-direction: column;
             text-align: left;
-            max-width: 700px;
+            max-width: 70rem;
 
             @include isTablet {
                 padding: 2rem 2.5rem;
@@ -76,22 +72,28 @@ $default-z-index: 1;
                 position: relative;
                 padding: $subtitle-padding;
                 margin: 0;
-                font-size: 1.8rem;
+                font-size: 2rem;
                 font-weight: 500;
                 width: auto;
                 text-align: left;
                 color: $white;
+                @include isTablet {
+                    font-size: 2.6rem;
+                }
             }
 
             &-subtitle {
                 position: relative;
                 padding: $subtitle-padding;
                 margin: 0;
-                font-size: 1.2rem;
+                font-size: 1.6rem;
                 font-weight: 500;
                 width: auto;
                 left: 0;
                 color: $white;
+                @include isTablet {
+                    font-size: 2rem;
+                }
             }
 
             &-hash {
@@ -115,12 +117,12 @@ $default-z-index: 1;
 
                 span {
                     color: $white;
-                    font-size: 1rem;
+                    font-size: 1.4rem;
                     font-weight: 600;
                     padding: 0 20px 0 0;
 
                     @include isTablet {
-                        font-size: 1.2rem;
+                        font-size: 1.6rem;
                     }
                 }
             }
@@ -128,31 +130,12 @@ $default-z-index: 1;
     }
 }
 
-
-// Elementi animati
 .slider-item.isVisible {
     .slider-item__lead-media {
         opacity: 1;
         filter: grayscale(0);
     }
-
     .rocket_block {
-        background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.61) 50%, rgba(0, 0, 0, 0) 100%);
-
-        @include isTablet {
-            width: 60%;
-        }
-
-        &-wrapper-title {
-            @include animate(fade-in-left, math.div($duration, 2), math.div($duration, 8), ease);
-        }
-
-        &-wrapper-subtitle {
-            @include animate(fade-in-left, math.div($duration, 3), math.div($duration, 6), ease);
-        }
-
-        &-wrapper-hash {
-            @include animate(fade-in-left, math.div($duration, 4), math.div($duration, 4), ease);
-        }
+        opacity: 1;
     }
 }

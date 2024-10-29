@@ -30,8 +30,8 @@ const App = () => {
       <div style={{ padding: '30px', background: 'white', margin: '0 auto', maxWidth: '1340px' }}>
         {loremIpsumContent.map((section, index) => (
           <section key={index}>
-            <h2>{section.title}</h2>
-            <p>{section.text}</p>
+            <h2 style={{fontSize: '2.4rem'}}>{section.title}</h2>
+            <p style={{fontSize: '1.6rem'}}>{section.text}</p>
           </section>
         ))}
       </div>

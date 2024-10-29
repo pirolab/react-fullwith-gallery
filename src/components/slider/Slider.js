@@ -11,40 +11,46 @@ const Slider = () => {
     const dispatch = useDispatch();
 
     const refContainer = useRef();
-    const refList = useRef();
-    const [dimensions, setDimensions] = useState({ width: 0 });
+    const [containerWidth, setContainerWidth] = useState(0);
     const startX = useRef(0);
+    const startY = useRef(0);
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
 
     const handleDragStart = (e) => {
         setIsDragging(true);
-        startX.current = e.clientX || e.touches[0].clientX; // Supporta input touch
+        startX.current = e.clientX || e.touches[0].clientX;
+        startY.current = e.clientY || e.touches[0].clientY;
         setDragOffset(0);
     };
 
     const handleDragMove = (e) => {
-        if (isDragging) {
-            const currentX = e.clientX || e.touches[0].clientX;
-            const dragDistance = currentX - startX.current;
-            setDragOffset(dragDistance);
+        if (!isDragging) return;
+
+        const currentX = e.clientX || e.touches[0].clientX;
+        const currentY = e.clientY || e.touches[0].clientY;
+
+        const deltaX = currentX - startX.current;
+        const deltaY = Math.abs(currentY - startY.current);
+        if (Math.abs(deltaX) > deltaY) {
+            setDragOffset(deltaX);
         }
     };
 
-    const handleDragEnd = () => {
+    const handleDragEnd = (e) => {
         if (!isDragging) return;
 
         setIsDragging(false);
-        const threshold = dimensions.width / 3;
+
+        const threshold = containerWidth / 4;
 
         if (Math.abs(dragOffset) > threshold) {
+            
             if (dragOffset < 0 && currentSlide < data.length - 1) {
                 dispatch({ type: 'NEXT', dataLength: data.length });
             } else if (dragOffset > 0 && currentSlide > 0) {
                 dispatch({ type: 'PREV', dataLength: data.length });
             }
-        } else {
-            setDragOffset(0);
         }
 
         setDragOffset(0);
@@ -59,7 +65,7 @@ const Slider = () => {
     useEffect(() => {
         const updateDimensions = () => {
             if (refContainer.current) {
-                setDimensions({ width: refContainer.current.offsetWidth });
+                setContainerWidth(refContainer.current.offsetWidth);
             }
         };
 
@@ -78,22 +84,22 @@ const Slider = () => {
             onMouseMove={handleDragMove}
             onMouseUp={handleDragEnd}
             onMouseLeave={handleMouseLeave}
-            onTouchStart={handleDragStart} // Gestore touch
-            onTouchMove={handleDragMove} // Gestore touch
-            onTouchEnd={handleDragEnd} // Gestore touch
-            style={{ cursor: isDragging ? "grabbing" : "grab" }}
+            onTouchStart={handleDragStart}
+            onTouchMove={handleDragMove}
+            onTouchEnd={handleDragEnd}
+            style={{
+                cursor: isDragging ? "grabbing" : "grab",
+                touchAction: isDragging ? "none" : "pan-y",
+            }}
         >
             {data && data.length > 0 ? (
                 <>
                     <ul
                         className="slider-list vh100"
-                        ref={refList}
                         style={{
-                            width: dimensions.width && data.length
-                                ? `${dimensions.width * data.length}px`
-                                : "auto",
-                            transform: `translateX(calc(-${dimensions.width * currentSlide}px + ${dragOffset}px))`,
-                            transition: isDragging ? "none" : "transform .8s ease",
+                            width: containerWidth * data.length,
+                            transform: `translateX(calc(-${containerWidth * currentSlide}px + ${dragOffset}px))`,
+                            transition: isDragging ? "none" : "transform .6s ease",
                         }}
                     >
                         {data.map((slide, index) => (
