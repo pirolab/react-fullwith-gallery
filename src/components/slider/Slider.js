@@ -14,19 +14,18 @@ const Slider = () => {
     const refList = useRef();
     const [dimensions, setDimensions] = useState({ width: 0 });
     const startX = useRef(0);
-
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
 
     const handleDragStart = (e) => {
         setIsDragging(true);
-        startX.current = e.clientX;
+        startX.current = e.clientX || e.touches[0].clientX; // Supporta input touch
         setDragOffset(0);
     };
 
     const handleDragMove = (e) => {
         if (isDragging) {
-            const currentX = e.clientX;
+            const currentX = e.clientX || e.touches[0].clientX;
             const dragDistance = currentX - startX.current;
             setDragOffset(dragDistance);
         }
@@ -36,7 +35,6 @@ const Slider = () => {
         if (!isDragging) return;
 
         setIsDragging(false);
-
         const threshold = dimensions.width / 3;
 
         if (Math.abs(dragOffset) > threshold) {
@@ -45,7 +43,9 @@ const Slider = () => {
             } else if (dragOffset > 0 && currentSlide > 0) {
                 dispatch({ type: 'PREV', dataLength: data.length });
             }
-        } 
+        } else {
+            setDragOffset(0);
+        }
 
         setDragOffset(0);
     };
@@ -78,6 +78,9 @@ const Slider = () => {
             onMouseMove={handleDragMove}
             onMouseUp={handleDragEnd}
             onMouseLeave={handleMouseLeave}
+            onTouchStart={handleDragStart} // Gestore touch
+            onTouchMove={handleDragMove} // Gestore touch
+            onTouchEnd={handleDragEnd} // Gestore touch
             style={{ cursor: isDragging ? "grabbing" : "grab" }}
         >
             {data && data.length > 0 ? (
@@ -90,7 +93,7 @@ const Slider = () => {
                                 ? `${dimensions.width * data.length}px`
                                 : "auto",
                             transform: `translateX(calc(-${dimensions.width * currentSlide}px + ${dragOffset}px))`,
-                            transition: isDragging ? "none" : "transform 0.3s ease",
+                            transition: isDragging ? "none" : "transform .8s ease",
                         }}
                     >
                         {data.map((slide, index) => (
