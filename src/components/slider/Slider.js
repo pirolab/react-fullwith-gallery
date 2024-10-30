@@ -99,7 +99,7 @@ const Slider = () => {
                         style={{
                             width: containerWidth * data.length,
                             transform: `translateX(calc(-${containerWidth * currentSlide}px + ${dragOffset}px))`,
-                            transition: isDragging ? "none" : "transform .6s ease",
+                            transition: isDragging ? "none" : "transform .8s ease",
                         }}
                     >
                         {data.map((slide, index) => (
