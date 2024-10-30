@@ -42,7 +42,7 @@ const Slider = () => {
 
         setIsDragging(false);
 
-        const threshold = containerWidth / 4;
+        const threshold = containerWidth / 5;
 
         if (Math.abs(dragOffset) > threshold) {
             
