@@ -8,7 +8,7 @@ const SliderList = ({ data, currentSlide, dragOffset, containerWidth, isDragging
         style={{
             width: containerWidth * data.length,
             transform: `translateX(calc(-${containerWidth * currentSlide}px + ${dragOffset}px))`,
-            transition: isDragging || isResizing ? "none" : "transform .6s ease",
+            transition: isDragging || isResizing ? "none" : "transform .8s ease",
         }}
     >
         {data.map((slide, index) => (

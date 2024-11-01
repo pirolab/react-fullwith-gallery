@@ -9,11 +9,7 @@ const SliderItem = (props) => {
     return (
         <>
             {slide && (
-                <li
-                    className={
-                        "slider-item " + (index === currentSlide ? "isVisible" : "")
-                    }
-                >
+                <li className={`slider-item ${index === currentSlide ? "isVisible" : ""}`}>
                     <div
                         className={"slider-item__lead-media"}
                         style={{ background: `url(${leadImage}) bottom/cover no-repeat` }}

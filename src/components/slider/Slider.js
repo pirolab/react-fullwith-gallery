@@ -34,30 +34,34 @@ const Slider = () => {
     };
 
     return (
-        <div
-            className="slider"
-            ref={refContainer}
-            {...attachDragEvents}
-            style={{
-                cursor: isDragging ? "grabbing" : "grab",
-                touchAction: isDragging ? "none" : "pan-y",
-            }}
-        >
+        <div className="slider">
+
             {data.length > 0 ? (
                 <>
-                    <SliderList
-                        data={data}
-                        currentSlide={currentSlide}
-                        dragOffset={dragOffset}
-                        containerWidth={containerWidth}
-                        isDragging={isDragging}
-                        isResizing={isResizing}
-                    />
+                    <div
+                        className="slider-wrapper"
+                        ref={refContainer}
+                        {...attachDragEvents}
+                        style={{
+                            cursor: isDragging ? "grabbing" : "grab",
+                            touchAction: isDragging ? "none" : "pan-y",
+                        }}
+                    >
+                        <SliderList
+                            data={data}
+                            currentSlide={currentSlide}
+                            dragOffset={dragOffset}
+                            containerWidth={containerWidth}
+                            isDragging={isDragging}
+                            isResizing={isResizing}
+                        />
+                    </div>
                     <Navigation currentSlide={currentSlide} data={data} />
                 </>
             ) : (
                 <span className="main_loader" />
             )}
+            
         </div>
     );
 };

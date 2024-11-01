@@ -21,7 +21,7 @@ $default-z-index: 1;
     height: 100svh;
     margin: 0 auto;
     flex: 1;
-    transform: scale(.8);
+    transform: scale(.4);
     transition: transform .6s, opacity .6s;
 
     @include isTablet {
@@ -29,6 +29,8 @@ $default-z-index: 1;
     }
 
     &__lead-media {
+        position: absolute;
+        z-index: 2;
         opacity: 0.3;
         width: 100%;
         height: 100svh;
@@ -43,6 +45,7 @@ $default-z-index: 1;
 
     .rocket_block {
         position: absolute;
+        z-index: 4;
         bottom: 6.5rem;
         left: 0;
         padding: 0;
@@ -51,6 +54,9 @@ $default-z-index: 1;
         transition: opacity .6s;
         transition-delay: .6s;
         opacity: 0;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
 
         @include isTablet {
             background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%);
@@ -101,11 +107,12 @@ $default-z-index: 1;
             &-hash {
                 position: relative;
                 font-style: italic;
-                text-align: left;
 
                 &--link {
                     color: white;
                     text-decoration: none;
+                    padding: .5rem 0;
+                    margin-inline-end: 1rem;
 
                     &:hover {
                         color: $link_hover;
@@ -120,7 +127,6 @@ $default-z-index: 1;
                 span {
                     font-size: 1.4rem;
                     font-weight: 600;
-                    padding: 0 20px 0 0;
 
                     @include isTablet {
                         font-size: 1.6rem;
