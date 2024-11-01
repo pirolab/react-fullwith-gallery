@@ -61,7 +61,7 @@ const Slider = () => {
             ) : (
                 <span className="main_loader" />
             )}
-            
+
         </div>
     );
 };

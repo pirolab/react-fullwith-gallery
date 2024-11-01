@@ -24,7 +24,7 @@ const loremIpsumContent = [
 const App = () => {
   return (
     <>
-      <div className="wrapper vh100">
+      <div className="wrapper">
         <Slider />
       </div>
       <div style={{ padding: '30px', background: 'white', margin: '0 auto', maxWidth: '1340px' }}>
