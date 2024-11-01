@@ -21,6 +21,8 @@ $default-z-index: 1;
     height: 100svh;
     margin: 0 auto;
     flex: 1;
+    transform: scale(.8);
+    transition: transform .6s, opacity .6s;
 
     @include isTablet {
         height: 100vh;
@@ -132,6 +134,7 @@ $default-z-index: 1;
 
 .slider-item.isVisible {
     opacity: 1;
+    transform: scale(1);
     .slider-item__lead-media {
         opacity: 1;
         filter: grayscale(0);
@@ -140,3 +143,5 @@ $default-z-index: 1;
         opacity: 1;
     }
 }
+
+
