@@ -4,7 +4,7 @@ import SliderItem from "../sliderItem/SliderItem";
 
 const SliderList = ({ data, currentSlide, dragOffset, containerWidth, isDragging, isResizing }) => (
     <ul
-        className="slider-list vh100"
+        className="slider-list"
         style={{
             width: containerWidth * data.length,
             transform: `translateX(calc(-${containerWidth * currentSlide}px + ${dragOffset}px))`,
