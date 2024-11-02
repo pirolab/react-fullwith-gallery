@@ -36,3 +36,34 @@ a {
 a:hover {
   color: #064ba2;
 }
+
+.git-link {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 11;
+  padding: .4rem;
+  background: rgba(255, 255, 255, 0.596);
+  border-radius: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.git-link span {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity .3s;
+  opacity: 0;
+  font-weight: 500;
+}
+.git-link:hover span{
+  width: auto;
+  height: auto;
+  padding: .5rem;
+  opacity: 1;
+  color: black;
+}
