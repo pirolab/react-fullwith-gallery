@@ -20,10 +20,10 @@ $default-z-index: 1;
     height: $slider_height_mobile;
     margin: 0 auto;
     flex: 1;
-    opacity: .4;
-    transition: opacity 1s, filter 1s;
-    transition-delay: .5s;
-    filter: grayscale(100%);
+    opacity: .3;
+    transition: opacity 1.2s, filter 1.2s;
+    transition-delay: .6s;
+    filter: grayscale(100%);  
 
     @include isLaptop {
         height: $slider_height;

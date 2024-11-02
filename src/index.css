@@ -29,3 +29,10 @@ h1 {
 .wrapper {
   width: 100%;
 }
+
+a {
+  color: #04172e;
+}
+a:hover {
+  color: #064ba2;
+}
