@@ -3,7 +3,7 @@
 Go see the 👉 [Demo](https://www.pirolab.it/react-fullwidth-gallery)
 
 [![Watch the video](https://www.pirolab.it/react-fullwidth-gallery/images/gallery_ss.png)](https://www.pirolab.it/react-fullwidth-gallery/images/gallery.webm.mob)
-
+https://www.pirolab.it/react-fullwidth-gallery/images/gallery.webm.mob
 - React, Redux
 - CSS animations
 - Ready to fetch data with custom Hook => useDataFetch(url)
