@@ -2,7 +2,7 @@
 
 Go see the 👉 [Demo](https://www.pirolab.it/react-fullwidth-gallery)
 
-[gallery.webm](https://github.com/user-attachments/assets/9fb19194-f8a6-4776-ae9d-c02ab29bed0c)
+[react-fullwidth-gallery.webm](https://github.com/user-attachments/assets/9871c0cd-b23b-4227-b436-2a59509c1bd8)
 
 - React, Redux
 - CSS animations
