@@ -1,6 +1,7 @@
 # React/Redux Image Gallery
 
 Go see the 👉 [Demo](https://www.pirolab.it/react-fullwidth-gallery)
+[gallery.webm](https://github.com/user-attachments/assets/9fb19194-f8a6-4776-ae9d-c02ab29bed0c)
 
 [![Watch the video](https://www.pirolab.it/react-fullwidth-gallery/images/gallery_ss.png)](https://www.pirolab.it/react-fullwidth-gallery/images/gallery.webm.mob)
 - React, Redux
