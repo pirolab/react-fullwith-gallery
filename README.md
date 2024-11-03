@@ -35,9 +35,6 @@ const ResponsiveComponent = () => {
 };
 ```
 
-This hook takes a ref to a DOM element as an argument and listens for resize events on the window.  
-Whenever the window is resized, it updates the width of the referenced element and sets isResizing to true for a brief period.
-
 ## useSliderDrag
 
 The useSliderDrag hook manages drag interactions for a slider component, allowing users to navigate slides by dragging left or right.  
