@@ -9,7 +9,7 @@ const Loader = (props) => {
     }
 
     return (
-        <span className={'loader ' + (isLoading ? 'isLoading' : '')}
+        <span className={'main-loader ' + (isLoading ? 'isLoading' : '')}
               onAnimationEnd={() => {
                   handleChange(false)
               }}

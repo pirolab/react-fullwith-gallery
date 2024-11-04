@@ -3,16 +3,21 @@
 @use "../../sass/animations" as *;
 
 .loader {
-    width: 65%;
-    height: .2rem;
-    background: $white;
-    position: relative;
-
+    display: block;
+    bottom: -2rem;
+    left: 0;
+    padding: 3px;
+    position: absolute;
+    z-index: 11;
+    height: 2rem;
+    width: 100%;
+    background: $black;
+    overflow: hidden;
     &::after {
         content: '';
-        position: absolute;
+        display: block;
         height: 100%;
-        background: $light_green;
+        background: $bg_btn;
     }
 
     &.isLoading {
@@ -20,5 +25,25 @@
             -webkit-animation: loader math.div($duration, 1.1) $easeInOutCirc both;
             animation: loader math.div($duration, 1.1) $easeInOutCirc both;
         }
+    }
+}
+
+.main_loader {
+    display: block;
+    bottom: -2rem;
+    left: 0;
+    padding: 3px;
+    position: absolute;
+    z-index: 11;
+    height: 2rem;
+    width: 100%;
+    background: $black;
+    overflow: hidden;
+    &:after {
+        content: '';
+        display: block;
+        height: 100%;
+        background: $bg_btn;
+        animation: 1s prog ease-in infinite;
     }
 }
