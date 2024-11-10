@@ -46,15 +46,14 @@ To use the useSliderDrag hook, follow these steps:
 - **Create a Container Reference**: Use a ref to reference the slider container in your component.
 - **Integrate Drag Handlers**: Attach the drag event handlers returned by the hook to the slider element.
 ```
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useRef } from 'react';
 import { useSliderDrag } from "./hooks/useSliderDrag";
-
+import { useResizeObserver } from '../../hooks/useResizeObserver';
 const SliderComponent = () => {
-    const dispatch = useDispatch();
-    const currentSlide = useSelector((state) => state.currentSlide);
-    const dataLength = useSelector((state) => state.dataLength);
-    const containerWidth = 600; // Example width
+    const { state, dispatch } = useSlider();
+    const { currentSlide, data } = state;
+    const refContainer = useRef();
+    const { containerWidth, isResizing } = useResizeObserver(refContainer);
 
     const {
         dragOffset,
@@ -66,6 +65,7 @@ const SliderComponent = () => {
 
     return (
         <div
+            ref={refContainer}
             className="slider-container"
             onMouseDown={handleDragStart}
             onMouseMove={handleDragMove}
@@ -132,12 +132,7 @@ Open http://localhost:3006 in your browser to view the app.
 
 ## Project Structure
 
-- **src/actions**: Configures Redux, with actions.
-    - index.js => actions [NEXT, PREV, BULLET]
 - **src/components**: Contains the main components of the gallery.
-    - **loader**
-        - Loader.js
-        - Loader.scss
     - **navigation**
         - Navigation.js
         - Navigation.scss
@@ -148,15 +143,14 @@ Open http://localhost:3006 in your browser to view the app.
         - SliderItem.js
         - SliderList.js
         - SliderItem.scss
+- **src/context**
+    - sliderContext.js
 - **src/hooks**: Houses the custom hooks.
     - **useDataFetch** hook for asynchronous data fetching.
     - **useSliderDrag** hook for managing drag interactions.
     - **useResizeObserver** hook to track and respond to resizing.
 - **mock**: Just to give an idea of the data structure; use **useDataFetch** to fetch API.
     - sliderData.json
-- **src/reducers**: Configures Redux, with reducers.
-    - index.js => combineReducers (for future implementation)
-    - navigation.js => navigationReducer
 - **src/sass**: Some CSS stuff to use and reuse 😁
     - animations.scss
     - mediaQueries.scss
