@@ -9,21 +9,21 @@ const SliderItem = (props) => {
     return (
         <>
             {slide && (
-                <li className={`slider-item ${index === currentSlide ? "isVisible" : ""}`}>
+                <li className={`slider__item ${index === currentSlide ? "isVisible" : ""}`}>
                     <div
-                        className={"slider-item__lead-media"}
-                        style={{ background: `url(${leadImage}) bottom/cover no-repeat` }}
+                        className={"slider__item-image"}
+                        style={{ backgroundImage: `url(${leadImage})` }}
                     />
-                    <div className={"rocket_block"}>
-                        <div className="rocket_block-wrapper">
-                            <h2 className="rocket_block-wrapper-title">{title}</h2>
-                            <h3 className="rocket_block-wrapper-subtitle">{subtitle}</h3>
-                            <div className="rocket_block-wrapper-hash">
+                    <div className={"slider__item-content"}>
+                        <div className="slider__item-content-wrapper">
+                            <h2 className="slider__item-content-title">{title}</h2>
+                            <h3 className="slider__item-content-subtitle">{subtitle}</h3>
+                            <div className="slider__item-content-hash">
                                 {tagsArray.map((tag) => {
                                     const hashUrl = `https://x.com/hashtag/${tag}`;
                                     return (
                                         <a
-                                            className="rocket_block-wrapper-hash--link"
+                                            className="slider__item-content-hash-link"
                                             key={tag}
                                             href={hashUrl}
                                             target="_blank"

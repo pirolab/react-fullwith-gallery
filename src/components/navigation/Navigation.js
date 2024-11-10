@@ -23,26 +23,26 @@ const Navigation = () => {
     return (
         <>
             {data && (
-                <div className="slider-nav">
-                    <span className="image-count">{currentSlide + 1} of {data.length}</span>
+                <div className="slider__nav">
+                    <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
 
-                    <span className="slider-nav-prev" onClick={handlePrev}>
+                    <button className="slider__nav-prev" onClick={handlePrev}>
                         <MdOutlineArrowBackIos />
-                    </span>
+                    </button>
 
-                    <ul className="bullet-nav">
+                    <ul className="slider__nav-bullet">
                         {data.map((_, index) => (
                             <li
-                                className={'bullet-nav-item ' + (index === currentSlide ? 'isActive' : '')}
+                                className={'slider__nav-bullet-item ' + (index === currentSlide ? 'isActive' : '')}
                                 key={index}
                                 onClick={() => handleBullet(index)}
                             />
                         ))}
                     </ul>
 
-                    <span className="slider-nav-next" onClick={handleNext}>
+                    <button className="slider__nav-next" onClick={handleNext}>
                         <MdOutlineArrowForwardIos />
-                    </span>
+                    </button>
                 </div>
             )}
         </>

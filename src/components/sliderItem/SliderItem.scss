@@ -13,7 +13,8 @@ $hash-top: 2rem;
 $default-opacity: 0;
 $default-z-index: 1;
 
-.slider-item {
+.slider__item {
+    $this: &;
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -21,27 +22,41 @@ $default-z-index: 1;
     margin: 0 auto;
     flex: 1;
     opacity: .3;
-    transition: opacity 1.2s, filter 1.2s;
-    transition-delay: .6s;
+    transform: scale(.9);
     filter: grayscale(100%);  
+    transition: opacity 1.2s, filter 1.2s, transform .6s;
+    transition-delay: .6s;
+
+    &.isVisible {
+        opacity: 1;
+        filter: grayscale(0);
+        transform: scale(1);
+    
+        #{$this}-content {
+            opacity: 1;
+        }
+    }
 
     @include isLaptop {
         height: $slider_height;
     }
 
-    &__lead-media {
+    &-image {
         position: absolute;
         z-index: 2;
         opacity: 1;
         width: 100%;
         height: $slider_height_mobile;
+        background-position: center bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
 
         @include isLaptop {
             height: $slider_height;
         }
     }
 
-    .rocket_block {
+    &-content {
         position: absolute;
         z-index: 4;
         bottom: 6.5rem;
@@ -73,74 +88,65 @@ $default-z-index: 1;
             @include isTablet {
                 padding: 2rem 2.5rem;
             }
+        }
 
-            &-title {
-                position: relative;
-                padding: $subtitle-padding;
-                margin: 0;
+        &-title {
+            position: relative;
+            padding: $subtitle-padding;
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 500;
+            width: auto;
+            text-align: left;
+            color: $white;
+            @include isTablet {
+                font-size: 2.6rem;
+            }
+        }
+
+        &-subtitle {
+            position: relative;
+            padding: $subtitle-padding;
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 500;
+            width: auto;
+            left: 0;
+            color: $white;
+            @include isTablet {
                 font-size: 2rem;
-                font-weight: 500;
-                width: auto;
+            }
+        }
+
+        &-hash {
+            position: relative;
+            font-style: italic;
+
+            &-link {
+                color: white;
+                text-decoration: none;
+                padding: .5rem 0;
+                margin-inline-end: 1rem;
+
+                &:hover {
+                    color: $link_hover;
+                }
+            }
+
+
+            @include isTablet {
                 text-align: left;
-                color: $white;
-                @include isTablet {
-                    font-size: 2.6rem;
-                }
             }
 
-            &-subtitle {
-                position: relative;
-                padding: $subtitle-padding;
-                margin: 0;
-                font-size: 1.6rem;
-                font-weight: 500;
-                width: auto;
-                left: 0;
-                color: $white;
-                @include isTablet {
-                    font-size: 2rem;
-                }
-            }
-
-            &-hash {
-                position: relative;
-                font-style: italic;
-
-                &--link {
-                    color: white;
-                    text-decoration: none;
-                    padding: .5rem 0;
-                    margin-inline-end: 1rem;
-
-                    &:hover {
-                        color: $link_hover;
-                    }
-                }
-
+            span {
+                font-size: 1.4rem;
+                font-weight: 600;
 
                 @include isTablet {
-                    text-align: left;
-                }
-
-                span {
-                    font-size: 1.4rem;
-                    font-weight: 600;
-
-                    @include isTablet {
-                        font-size: 1.6rem;
-                    }
+                    font-size: 1.6rem;
                 }
             }
         }
-    }
-}
-
-.slider-item.isVisible {
-    opacity: 1;
-    filter: grayscale(0);
-
-    .rocket_block {
-        opacity: 1;
     }
 }
 

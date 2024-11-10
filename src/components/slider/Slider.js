@@ -33,7 +33,7 @@ const Slider = () => {
     return (
         <div className="slider">
             <div
-                className="slider-wrapper"
+                className="slider__wrapper"
                 ref={refContainer}
                 {...attachDragEvents}
                 style={{
@@ -51,7 +51,7 @@ const Slider = () => {
                         isResizing={isResizing}
                     />
                 ) : (
-                    <span className="main_loader"/>
+                    <span className="slider__loader"/>
                 )}
             </div>
             {data.length > 0 && (
