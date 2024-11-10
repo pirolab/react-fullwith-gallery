@@ -1,4 +1,4 @@
-# React/Redux Image Gallery
+# React Fullwidth Image Gallery
 
 Go see the 👉 [Demo](https://www.pirolab.it/react-fullwidth-gallery) or [codepen](https://codepen.io/pirolab/full/PoMRdZz)
 
