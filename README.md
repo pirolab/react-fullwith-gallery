@@ -4,7 +4,7 @@ Go see the 👉 [Demo](https://www.pirolab.it/react-fullwidth-gallery) or [codep
 
 [react-fullwidth-gallery.webm](https://github.com/user-attachments/assets/9871c0cd-b23b-4227-b436-2a59509c1bd8)
 
-- React, Redux
+- React
 - CSS animations
 - Ready to fetch data with custom Hook => useDataFetch(url)
 
@@ -42,7 +42,7 @@ It tracks the drag state and calculates the offset to determine slide changes.
 ### Usage
 To use the useSliderDrag hook, follow these steps:
 - **Import the Hook**: Import the useSliderDrag hook in your component.
-- **Setup State and Dispatch**: Ensure you have the necessary state values and a dispatch function from your Redux store.
+- **Setup State and Dispatch**: Ensure you have the necessary state values and a dispatch function from your context provider.
 - **Create a Container Reference**: Use a ref to reference the slider container in your component.
 - **Integrate Drag Handlers**: Attach the drag event handlers returned by the hook to the slider element.
 ```
@@ -112,7 +112,7 @@ export default SliderComponent;
 2. **Navigate into the project directory**
 
    ```bash
-   cd react-redux-gallery
+   cd react-fullwith-gallery-main
 
    ```
 
