@@ -1,20 +1,17 @@
-// Slider.js
-import React, { useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import data from "../../mock/sliderData.json";
-import Navigation from "../navigation/Navigation";
-import SliderList from "./SliderList";
-import { useSliderDrag } from "../../hooks/useSliderDrag";
-import { useResizeObserver } from "../../hooks/useResizeObserver";
-import "./Slider.scss";
+import React, { useRef } from 'react';
+import { useSlider } from '../../context/sliderContext';
+import Navigation from '../navigation/Navigation';
+import SliderList from './SliderList';
+import { useSliderDrag } from '../../hooks/useSliderDrag';
+import { useResizeObserver } from '../../hooks/useResizeObserver';
+import './Slider.scss';
 
 const Slider = () => {
-    const { currentSlide } = useSelector((state) => state.navigation);
-    const dispatch = useDispatch();
+    const { state, dispatch } = useSlider();
+    const { currentSlide, data } = state;
     const refContainer = useRef();
 
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
-
     const {
         dragOffset,
         isDragging,
@@ -35,33 +32,31 @@ const Slider = () => {
 
     return (
         <div className="slider">
-
-            {data.length > 0 ? (
-                <>
-                    <div
-                        className="slider-wrapper"
-                        ref={refContainer}
-                        {...attachDragEvents}
-                        style={{
-                            cursor: isDragging ? "grabbing" : "grab",
-                            touchAction: isDragging ? "none" : "pan-y",
-                        }}
-                    >
-                        <SliderList
-                            data={data}
-                            currentSlide={currentSlide}
-                            dragOffset={dragOffset}
-                            containerWidth={containerWidth}
-                            isDragging={isDragging}
-                            isResizing={isResizing}
-                        />
-                    </div>
-                    <Navigation currentSlide={currentSlide} data={data} />
-                </>
-            ) : (
-                <span className="main_loader" />
+            <div
+                className="slider-wrapper"
+                ref={refContainer}
+                {...attachDragEvents}
+                style={{
+                    cursor: isDragging ? 'grabbing' : 'grab',
+                    touchAction: isDragging ? 'none' : 'pan-y',
+                }}
+            >
+                {data.length > 0 ? (
+                    <SliderList
+                        data={data}
+                        currentSlide={currentSlide}
+                        dragOffset={dragOffset}
+                        containerWidth={containerWidth}
+                        isDragging={isDragging}
+                        isResizing={isResizing}
+                    />
+                ) : (
+                    <span className="main_loader"/>
+                )}
+            </div>
+            {data.length > 0 && (
+                <Navigation currentSlide={currentSlide} data={data} />
             )}
-
         </div>
     );
 };
