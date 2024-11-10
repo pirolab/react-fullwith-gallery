@@ -51,7 +51,7 @@ const Slider = () => {
                         isResizing={isResizing}
                     />
                 ) : (
-                    <span className="main_loader" />
+                    <span className="main_loader"/>
                 )}
             </div>
             {data.length > 0 && (

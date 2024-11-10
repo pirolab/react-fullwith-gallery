@@ -9,11 +9,11 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <SliderProvider>
-      <App />
-    </SliderProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <SliderProvider>
+            <App />
+        </SliderProvider>
+    </React.StrictMode>
 );
 
 reportWebVitals();
