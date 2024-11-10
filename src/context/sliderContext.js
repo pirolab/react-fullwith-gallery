@@ -32,8 +32,8 @@ const sliderReducer = (state, action) => {
     }
 };
 
-export const SliderProvider = ({ children }) => {
-    const { data, error } = useDataFetch('./sliderData.json');
+export const SliderProvider = ({ children, url }) => {
+    const { data, error, isLoading } = useDataFetch(url);
 
     const initialState = {
         data: [],
@@ -47,6 +47,10 @@ export const SliderProvider = ({ children }) => {
             dispatch({ type: 'SET_DATA', payload: data });
         }
     }, [data]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     if (error) {
         return <div>Error loading data: {error.message}</div>;

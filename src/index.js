@@ -8,9 +8,11 @@ import { SliderProvider } from './context/sliderContext';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+const sliderUrl = './sliderData.json';
+
 root.render(
     <React.StrictMode>
-        <SliderProvider>
+        <SliderProvider url={sliderUrl}>
             <App />
         </SliderProvider>
     </React.StrictMode>
