@@ -10,7 +10,6 @@ const Slider = () => {
     const { state, dispatch } = useSlider();
     const { currentSlide, data } = state;
     const refContainer = useRef();
-
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
     const {
         dragOffset,
@@ -20,6 +19,14 @@ const Slider = () => {
         handleDragEnd,
     } = useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
 
+    const dragDir = isDragging 
+        ? (dragOffset < 0 && currentSlide < data.length - 1 
+            ? 'RTL' 
+            : dragOffset > 0 && currentSlide > 0 
+            ? 'LTR' 
+            : '')
+        : '';
+  
     const attachDragEvents = {
         onMouseDown: handleDragStart,
         onMouseMove: handleDragMove,
@@ -33,7 +40,7 @@ const Slider = () => {
     return (
         <div className="slider">
             <div
-                className="slider__wrapper"
+                className={`slider__wrapper ${dragDir}`}
                 ref={refContainer}
                 {...attachDragEvents}
                 style={{
@@ -55,7 +62,7 @@ const Slider = () => {
                 )}
             </div>
             {data.length > 0 && (
-                <Navigation currentSlide={currentSlide} data={data} />
+                <Navigation currentSlide={currentSlide} data={data}  />
             )}
         </div>
     );

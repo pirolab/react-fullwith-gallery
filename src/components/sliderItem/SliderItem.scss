@@ -12,6 +12,8 @@ $subtitle-padding: 0 0 1rem;
 $hash-top: 2rem;
 $default-opacity: 0;
 $default-z-index: 1;
+$animationTime: 0.8s;
+$animationDelay: 0.4s;
 
 .slider__item {
     $this: &;
@@ -22,10 +24,10 @@ $default-z-index: 1;
     margin: 0 auto;
     flex: 1;
     opacity: .3;
-    transform: scale(.9);
+    transform: scale(1);
     filter: grayscale(100%);  
-    transition: opacity 1.2s, filter 1.2s, transform .6s;
-    transition-delay: .6s;
+    transition: opacity $animationTime, filter $animationTime, transform $animationTime;
+    transition-delay: $animationDelay;
 
     &.isVisible {
         opacity: 1;
