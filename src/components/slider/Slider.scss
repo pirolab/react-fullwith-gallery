@@ -15,9 +15,9 @@
 
     @mixin applyTransform($direction) {
         @if $direction == 'RTL' {
-            transform: skew(3deg, 0) scale(0.95);
+            transform: skew(3deg, 0);
         } @else if $direction == 'LTR' {
-            transform: skew(-3deg, 0) scale(0.95);
+            transform: skew(-3deg, 0);
         }
     }
     
@@ -26,7 +26,7 @@
         height: 100%;
         width: 100%;
         overflow-x: hidden;
-        transition: transform 0.8s ease;
+        transition: transform 0.2s ease;
     
         &.RTL {
             @include applyTransform('RTL');
@@ -38,7 +38,7 @@
     
         &.RTL .slider__item,
         &.LTR .slider__item {
-            transform: scale(0.8);
+            transform: scale(0.85);
             transition-delay: unset;
         }
     }
