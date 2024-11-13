@@ -2,56 +2,85 @@
 @use "../../sass/mediaQueries" as *;
 
 .slider {
-  position: relative;
-  max-width: 1920px;
-  margin: 0 auto;
-  background: $main_backgroud;
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-
-  @include isLaptop {
-    height: auto;
-  }
-
-  &-list {
     position: relative;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-}
+    margin: 0 auto;
+    background: $main_backgroud;
+    width: 100%;
+    height: $slider_height_mobile;
 
-.main_loader {
-  display: block;
-  position: relative;
-  height: 10px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.28);
-  overflow: hidden;
-}
 
-.main_loader:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 0;
-  background: $light_green;
-  animation: 1s prog ease-in infinite;
+    @include isLaptop {
+        height: $slider_height;
+    }
+
+    @mixin applyTransform($direction) {
+        @if $direction == 'RTL' {
+            transform: skew(3deg, 0) scale(0.95);
+        } @else if $direction == 'LTR' {
+            transform: skew(-3deg, 0) scale(0.95);
+        }
+    }
+    
+    &__wrapper {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        transition: transform 0.8s ease;
+    
+        &.RTL {
+            @include applyTransform('RTL');
+        }
+    
+        &.LTR {
+            @include applyTransform('LTR');
+        }
+    
+        &.RTL .slider__item,
+        &.LTR .slider__item {
+            transform: scale(0.8);
+            transition-delay: unset;
+        }
+    }
+    
+    &__list {
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    &__loader {
+        display: block;
+        bottom: 0;
+        left: 0;
+        padding: 3px;
+        position: absolute;
+        z-index: 11;
+        height: 1.2rem;
+        width: 100%;
+        background: $black;
+        overflow: hidden;
+        &:after {
+            content: '';
+            display: block;
+            height: 100%;
+            background: $loader;
+            animation: 1s prog ease infinite;
+        }
+    }
 }
 
 .error_msg {
-  color: $white;
-  font-size: 1.2rem;
-  padding: 2rem;
-  text-align: center;
+    color: $white;
+    font-size: 1.2rem;
+    padding: 2rem;
+    text-align: center;
 }
 
 @keyframes prog {
-  to {
-    width: 100%;
-  }
+    to {
+        width: 100%;
+    }
 }

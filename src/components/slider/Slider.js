@@ -1,120 +1,68 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import data from "../../mock/sliderData.json";
-import Navigation from "../navigation/Navigation";
-import SliderItem from "../sliderItem/SliderItem";
-import "./Slider.scss";
+import React, { useRef } from 'react';
+import { useSlider } from '../../context/sliderContext';
+import Navigation from '../navigation/Navigation';
+import SliderList from './SliderList';
+import { useSliderDrag } from '../../hooks/useSliderDrag';
+import { useResizeObserver } from '../../hooks/useResizeObserver';
+import './Slider.scss';
 
 const Slider = () => {
-    const navigation = useSelector((state) => state.navigation);
-    const { currentSlide } = navigation;
-    const dispatch = useDispatch();
-
+    const { state, dispatch } = useSlider();
+    const { currentSlide, data } = state;
     const refContainer = useRef();
-    const [containerWidth, setContainerWidth] = useState(0);
-    const startX = useRef(0);
-    const startY = useRef(0);
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragOffset, setDragOffset] = useState(0);
+    const { containerWidth, isResizing } = useResizeObserver(refContainer);
+    const {
+        dragOffset,
+        isDragging,
+        handleDragStart,
+        handleDragMove,
+        handleDragEnd,
+    } = useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
 
-    const handleDragStart = (e) => {
-        setIsDragging(true);
-        startX.current = e.clientX || e.touches[0].clientX;
-        startY.current = e.clientY || e.touches[0].clientY;
-        setDragOffset(0);
+    const dragDir = isDragging 
+        ? (dragOffset < 0 && currentSlide < data.length - 1 
+            ? 'RTL' 
+            : dragOffset > 0 && currentSlide > 0 
+            ? 'LTR' 
+            : '')
+        : '';
+  
+    const attachDragEvents = {
+        onMouseDown: handleDragStart,
+        onMouseMove: handleDragMove,
+        onMouseUp: handleDragEnd,
+        onMouseLeave: handleDragEnd,
+        onTouchStart: handleDragStart,
+        onTouchMove: handleDragMove,
+        onTouchEnd: handleDragEnd,
     };
-
-    const handleDragMove = (e) => {
-        if (!isDragging) return;
-
-        const currentX = e.clientX || e.touches[0].clientX;
-        const currentY = e.clientY || e.touches[0].clientY;
-
-        const deltaX = currentX - startX.current;
-        const deltaY = Math.abs(currentY - startY.current);
-        if (Math.abs(deltaX) > deltaY) {
-            setDragOffset(deltaX);
-        }
-    };
-
-    const handleDragEnd = (e) => {
-        if (!isDragging) return;
-
-        setIsDragging(false);
-
-        const threshold = containerWidth / 5;
-
-        if (Math.abs(dragOffset) > threshold) {
-            
-            if (dragOffset < 0 && currentSlide < data.length - 1) {
-                dispatch({ type: 'NEXT', dataLength: data.length });
-            } else if (dragOffset > 0 && currentSlide > 0) {
-                dispatch({ type: 'PREV', dataLength: data.length });
-            }
-        }
-
-        setDragOffset(0);
-    };
-
-    const handleMouseLeave = () => {
-        if (isDragging) {
-            handleDragEnd();
-        }
-    };
-
-    useEffect(() => {
-        const updateDimensions = () => {
-            if (refContainer.current) {
-                setContainerWidth(refContainer.current.offsetWidth);
-            }
-        };
-
-        updateDimensions();
-        window.addEventListener("resize", updateDimensions);
-        return () => {
-            window.removeEventListener("resize", updateDimensions);
-        };
-    }, []);
 
     return (
-        <div
-            className="slider"
-            ref={refContainer}
-            onMouseDown={handleDragStart}
-            onMouseMove={handleDragMove}
-            onMouseUp={handleDragEnd}
-            onMouseLeave={handleMouseLeave}
-            onTouchStart={handleDragStart}
-            onTouchMove={handleDragMove}
-            onTouchEnd={handleDragEnd}
-            style={{
-                cursor: isDragging ? "grabbing" : "grab",
-                touchAction: isDragging ? "none" : "pan-y",
-            }}
-        >
-            {data && data.length > 0 ? (
-                <>
-                    <ul
-                        className="slider-list vh100"
-                        style={{
-                            width: containerWidth * data.length,
-                            transform: `translateX(calc(-${containerWidth * currentSlide}px + ${dragOffset}px))`,
-                            transition: isDragging ? "none" : "transform .8s ease",
-                        }}
-                    >
-                        {data.map((slide, index) => (
-                            <SliderItem
-                                currentSlide={currentSlide}
-                                slide={slide}
-                                key={index}
-                                index={index}
-                            />
-                        ))}
-                    </ul>
-                    <Navigation currentSlide={currentSlide} data={data} />
-                </>
-            ) : (
-                <span className="main_loader" />
+        <div className="slider">
+            <div
+                className={`slider__wrapper ${dragDir}`}
+                ref={refContainer}
+                {...attachDragEvents}
+                style={{
+                    cursor: isDragging ? 'grabbing' : 'grab',
+                    touchAction: isDragging ? 'none' : 'pan-y',
+                }}
+            >
+                {data.length > 0 ? (
+                    <SliderList
+                        data={data}
+                        currentSlide={currentSlide}
+                        dragOffset={dragOffset}
+                        containerWidth={containerWidth}
+                        isDragging={isDragging}
+                        isResizing={isResizing}
+                    />
+                ) : (
+                    <span className="slider__loader"/>
+                )}
+            </div>
+            {data.length > 0 && (
+                <Navigation currentSlide={currentSlide} data={data}  />
             )}
         </div>
     );

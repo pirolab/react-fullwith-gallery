@@ -8,39 +8,59 @@
     animation: $name $duration $delay $timing both;
 }
 
-$subtitle-padding: 0 0 10px;
-$hash-top: 20px;
+$subtitle-padding: 0 0 1rem;
+$hash-top: 2rem;
 $default-opacity: 0;
 $default-z-index: 1;
+$animationTime: 0.8s;
+$animationDelay: 0.4s;
 
-.slider-item {
+.slider__item {
+    $this: &;
     position: relative;
     overflow: hidden;
-    max-width: 100vw;
     width: 100%;
-    height: 100svh;
+    height: $slider_height_mobile;
     margin: 0 auto;
     flex: 1;
+    opacity: .3;
+    transform: scale(1);
+    filter: grayscale(100%);  
+    transition: opacity $animationTime, filter $animationTime, transform $animationTime;
+    transition-delay: $animationDelay;
 
-    @include isTablet {
-        height: 100vh;
-    }
-
-    &__lead-media {
-        opacity: 0.3;
-        width: 100%;
-        height: 100svh;
-        transition: opacity 1s, filter 1s;
-        transition-delay: .5s;
-        filter: grayscale(100%);
-
-        @include isTablet {
-            height: 100vh;
+    &.isVisible {
+        opacity: 1;
+        filter: grayscale(0);
+        transform: scale(1);
+    
+        #{$this}-content {
+            opacity: 1;
         }
     }
 
-    .rocket_block {
+    @include isLaptop {
+        height: $slider_height;
+    }
+
+    &-image {
         position: absolute;
+        z-index: 2;
+        opacity: 1;
+        width: 100%;
+        height: $slider_height_mobile;
+        background-position: center bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        @include isLaptop {
+            height: $slider_height;
+        }
+    }
+
+    &-content {
+        position: absolute;
+        z-index: 4;
         bottom: 6.5rem;
         left: 0;
         padding: 0;
@@ -49,6 +69,9 @@ $default-z-index: 1;
         transition: opacity .6s;
         transition-delay: .6s;
         opacity: 0;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
 
         @include isTablet {
             background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%);
@@ -67,75 +90,66 @@ $default-z-index: 1;
             @include isTablet {
                 padding: 2rem 2.5rem;
             }
+        }
 
-            &-title {
-                position: relative;
-                padding: $subtitle-padding;
-                margin: 0;
+        &-title {
+            position: relative;
+            padding: $subtitle-padding;
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 500;
+            width: auto;
+            text-align: left;
+            color: $white;
+            @include isTablet {
+                font-size: 2.6rem;
+            }
+        }
+
+        &-subtitle {
+            position: relative;
+            padding: $subtitle-padding;
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 500;
+            width: auto;
+            left: 0;
+            color: $white;
+            @include isTablet {
                 font-size: 2rem;
-                font-weight: 500;
-                width: auto;
-                text-align: left;
-                color: $white;
-                @include isTablet {
-                    font-size: 2.6rem;
+            }
+        }
+
+        &-hash {
+            position: relative;
+            font-style: italic;
+
+            &-link {
+                color: white;
+                text-decoration: none;
+                padding: .5rem 0;
+                margin-inline-end: 1rem;
+
+                &:hover {
+                    color: $link_hover;
                 }
             }
 
-            &-subtitle {
-                position: relative;
-                padding: $subtitle-padding;
-                margin: 0;
-                font-size: 1.6rem;
-                font-weight: 500;
-                width: auto;
-                left: 0;
-                color: $white;
-                @include isTablet {
-                    font-size: 2rem;
-                }
+
+            @include isTablet {
+                text-align: left;
             }
 
-            &-hash {
-                position: relative;
-                font-style: italic;
-                text-align: left;
-
-                &--link {
-                    color: white;
-                    text-decoration: none;
-
-                    &:hover {
-                        color: $link_hover;
-                    }
-                }
-
+            span {
+                font-size: 1.4rem;
+                font-weight: 600;
 
                 @include isTablet {
-                    text-align: left;
-                }
-
-                span {
-                    font-size: 1.4rem;
-                    font-weight: 600;
-                    padding: 0 20px 0 0;
-
-                    @include isTablet {
-                        font-size: 1.6rem;
-                    }
+                    font-size: 1.6rem;
                 }
             }
         }
     }
 }
 
-.slider-item.isVisible {
-    opacity: 1;
-    .slider-item__lead-media {
-        opacity: 1;
-        filter: grayscale(0);
-    }
-    .rocket_block {
-        opacity: 1;
-    }
-}
+
