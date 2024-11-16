@@ -19,13 +19,7 @@ const Slider = () => {
         handleDragEnd,
     } = useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
 
-    const dragDir = isDragging 
-        ? (dragOffset < 0 && currentSlide < data.length - 1 
-            ? 'RTL' 
-            : dragOffset > 0 && currentSlide > 0 
-            ? 'LTR' 
-            : '')
-        : '';
+    const dragDir = (dragOffset < 0 ? 'RTL' : dragOffset > 0 ? 'LTR' : '');
   
     const attachDragEvents = {
         onMouseDown: handleDragStart,

@@ -7,19 +7,13 @@
     background: $main_backgroud;
     width: 100%;
     height: $slider_height_mobile;
+    overflow: hidden;
 
 
     @include isLaptop {
         height: $slider_height;
     }
 
-    @mixin applyTransform($direction) {
-        @if $direction == 'RTL' {
-            transform: skew(3deg, 0);
-        } @else if $direction == 'LTR' {
-            transform: skew(-3deg, 0);
-        }
-    }
     
     &__wrapper {
         position: relative;
@@ -28,18 +22,17 @@
         overflow-x: hidden;
         transition: transform 0.2s ease;
     
-        &.RTL {
-            @include applyTransform('RTL');
-        }
-    
-        &.LTR {
-            @include applyTransform('LTR');
-        }
-    
-        &.RTL .slider__item,
-        &.LTR .slider__item {
-            transform: scale(0.85);
-            transition-delay: unset;
+        @include isLaptop {
+            &.RTL .slider__item:not(.isVisible) {
+                .slider__item-image {
+                    background-position-x: -15vw;
+                }
+            }
+            &.LTR .slider__item:not(.isVisible) {
+                .slider__item-image {
+                    background-position-x: 15vw;
+                }
+            }
         }
     }
     
