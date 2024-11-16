@@ -26,11 +26,13 @@
             &.RTL .slider__item:not(.isVisible) {
                 .slider__item-image {
                     background-position-x: -15vw;
+                    transition: all 1.6s;
                 }
             }
             &.LTR .slider__item:not(.isVisible) {
                 .slider__item-image {
                     background-position-x: 15vw;
+                    transition: all 1.6s;
                 }
             }
         }
