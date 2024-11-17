@@ -6,6 +6,8 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
     const [dragOffset, setDragOffset] = useState(0);
     const startPos = useRef({ x: 0, y: 0 });
 
+    const lastDragOffset = useRef(0);
+
     const handleDragStart = (e) => {
         setIsDragging(true);
         const clientX = e.clientX || e.touches[0].clientX;
@@ -20,7 +22,10 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
         if (clientX === undefined) return;
 
         const deltaX = clientX - startPos.current.x;
-        setDragOffset(deltaX);
+        if (Math.abs(deltaX - lastDragOffset.current) > 2) {
+            lastDragOffset.current = deltaX;
+            setDragOffset(deltaX);
+        }
     };
 
     const handleDragEnd = () => {
@@ -34,6 +39,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
             }
         }
         setDragOffset(0);
+        lastDragOffset.current = 0;
     };
 
     return {

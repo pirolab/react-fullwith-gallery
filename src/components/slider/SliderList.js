@@ -2,28 +2,41 @@
 import React from "react";
 import SliderItem from "../sliderItem/SliderItem";
 
-const SliderList = (
-    { 
+const SliderList = (props) => {
+    const {
         data, 
         currentSlide, 
         dragOffset, 
         containerWidth, 
         isDragging, 
-        isResizing 
-    }
-) => (
-    <ul
+        isResizing,
+        dragDir
+    } = props;
+
+    const slidePosition = -(containerWidth * currentSlide) + dragOffset;
+    
+    return (
+        <ul
         className="slider__list"
         style={{
             width: containerWidth * data.length,
-            transform: `translateX(calc(-${containerWidth * currentSlide}px + ${dragOffset}px))`,
+            transform: `translateX(${slidePosition}px)`,
             transition: isDragging || isResizing ? "none" : "transform .8s ease"
         }}
     >
         {data.map((slide, index) => (
-            <SliderItem key={index} slide={slide} index={index} currentSlide={currentSlide} />
+            <SliderItem 
+                key={index} 
+                slide={slide} 
+                index={index} 
+                currentSlide={currentSlide}
+                dragOffset={dragOffset}
+                dataLength={data.length}
+                dragDir={dragDir}
+            />
         ))}
     </ul>
-);
+    );
+};
 
 export default SliderList;
