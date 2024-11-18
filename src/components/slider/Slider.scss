@@ -7,23 +7,22 @@
     background: $main_backgroud;
     width: 100%;
     height: $slider_height_mobile;
+    min-height: $slider_min-height_mobile;
     overflow: hidden;
-
 
     @include isLaptop {
         height: $slider_height;
+        min-height: $slider_min-height;
     }
 
-    
     &__wrapper {
         position: relative;
         height: 100%;
         width: 100%;
         overflow-x: hidden;
         transition: transform 0.2s ease;
-
     }
-    
+
     &__list {
         position: relative;
         list-style: none;
@@ -43,8 +42,9 @@
         width: 100%;
         background: $black;
         overflow: hidden;
+
         &:after {
-            content: '';
+            content: "";
             display: block;
             height: 100%;
             background: $loader;

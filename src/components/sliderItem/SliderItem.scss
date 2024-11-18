@@ -21,6 +21,7 @@ $animationDelay: 0.4s;
     overflow: hidden;
     width: 100%;
     height: $slider_height_mobile;
+    min-height: $slider_min-height_mobile;
     margin: 0 auto;
     flex: 1;
     opacity: .3;
@@ -41,6 +42,7 @@ $animationDelay: 0.4s;
 
     @include isLaptop {
         height: $slider_height;
+        min-height: $slider_min-height;
     }
 
     &-image {
@@ -50,12 +52,14 @@ $animationDelay: 0.4s;
         width: 100%;
         overflow: hidden;
         height: $slider_height_mobile;
+        min-height: $slider_min-height_mobile;
         background-position-x: center;
         background-position-y: center;
         background-size: cover;
         background-repeat: no-repeat;
         @include isLaptop {
             height: $slider_height;
+            min-height: $slider_min-height;
         }
     }
 
