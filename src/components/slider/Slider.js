@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useSlider } from '../../context/sliderContext';
 import Navigation from '../navigation/Navigation';
 import SliderList from './SliderList';
@@ -12,6 +12,8 @@ const Slider = () => {
     const refContainer = useRef();
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
     const [dragDir, setDragDir] = useState(false);
+    const [isTouchStart, setisTouchStart] = useState(false);
+
     const {
         dragOffset,
         isDragging,
@@ -19,16 +21,34 @@ const Slider = () => {
         handleDragMove,
         handleDragEnd,
     } = useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
-    
+        
+    const handleTouchStart = useCallback((e) => {
+        setisTouchStart(true);
+        handleDragStart(e);
+    }, [handleDragStart]);
+
+    const handleTouchEnd = useCallback((e) => {
+        setisTouchStart(false);
+        handleDragEnd(e);
+    }, [handleDragEnd]);
+
     useEffect(() => {
         setDragDir(prevDragDir => {
-          const newDragDir = dragOffset < 0 ? 'RTL' : dragOffset > 0 ? 'LTR' : '';
-          return prevDragDir !== newDragDir ? newDragDir : prevDragDir;
+            const newDragDir = dragOffset < 0 ? 'RTL' : dragOffset > 0 ? 'LTR' : '';
+            return prevDragDir !== newDragDir ? newDragDir : prevDragDir;
         });
-      }, [dragOffset]);
-      
-   
-  
+    }, [dragOffset]);
+
+    useEffect(() => {
+        const container = refContainer.current;
+        container.addEventListener('touchstart', handleTouchStart);
+        container.addEventListener('touchend', handleTouchEnd);
+        return () => {
+            container.removeEventListener('touchstart', handleTouchStart);
+            container.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [handleTouchStart,handleTouchEnd]);
+
     const attachDragEvents = {
         onMouseDown: handleDragStart,
         onMouseMove: handleDragMove,
@@ -47,7 +67,7 @@ const Slider = () => {
                 {...attachDragEvents}
                 style={{
                     cursor: isDragging ? 'grabbing' : 'grab',
-                    touchAction: isDragging ? 'none' : 'pan-y',
+                    touchAction: isTouchStart ? 'none' : 'pan-y',
                 }}
             >
                 {data.length > 0 ? (
@@ -61,11 +81,11 @@ const Slider = () => {
                         dragDir={dragDir}
                     />
                 ) : (
-                    <span className="slider__loader"/>
+                    <span className="slider__loader" />
                 )}
             </div>
             {data.length > 0 && (
-                <Navigation currentSlide={currentSlide} data={data}  />
+                <Navigation currentSlide={currentSlide} data={data} />
             )}
         </div>
     );

@@ -33,6 +33,7 @@ const SliderList = (props) => {
                 dragOffset={dragOffset}
                 dataLength={data.length}
                 dragDir={dragDir}
+                isDragging={isDragging}
             />
         ))}
     </ul>

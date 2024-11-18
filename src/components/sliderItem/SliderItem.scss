@@ -37,10 +37,6 @@ $animationDelay: 0.4s;
         #{$this}-content {
             opacity: 1;
         }
-        
-        #{$this}-image {
-            transition: none;
-        }
     }
 
     @include isLaptop {
@@ -58,7 +54,6 @@ $animationDelay: 0.4s;
         background-position-y: center;
         background-size: cover;
         background-repeat: no-repeat;
-        transition-delay: .8s;
         @include isLaptop {
             height: $slider_height;
         }

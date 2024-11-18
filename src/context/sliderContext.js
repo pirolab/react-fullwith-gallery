@@ -49,7 +49,7 @@ export const SliderProvider = ({ children, url }) => {
     }, [data]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <span className="slider__loader"/>;
     }
 
     if (error) {
