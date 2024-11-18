@@ -31,6 +31,14 @@ const SliderItem = ({
             : `${-offset * -1 / 6}px`;
     };
 
+    const getTransitionTime = (i, current, isDragging) => {
+        return isDragging
+            ? 'none'
+            : `all .6s ${i === current && !isDragging
+                ? '.2s'
+                : '.8s'}`
+    };
+
     if (!slide) return null;
 
     return (
@@ -40,8 +48,8 @@ const SliderItem = ({
                 style={{
                     backgroundImage: `url(${leadImage})`,
                     backgroundPositionX: getBgPositionX(index, currentSlide, dragOffset, restrictToBounds),
-                    transition: isDragging ? 'none' : 'all .4s',
-                    transitionDelay: index === currentSlide && isDragging ? 'unset' : '.8s',
+                    transition: getTransitionTime(index, currentSlide, dragOffset, isDragging)
+
                 }}
             />
             <div className="slider__item-content">
