@@ -8,7 +8,7 @@ import { SliderProvider } from './context/sliderContext';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-const sliderUrl = './sliderData.json';
+const sliderUrl = 'https://673a61cf339a4ce44518071a.mockapi.io/api/slides';
 
 root.render(
     <React.StrictMode>

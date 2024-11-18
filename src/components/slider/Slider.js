@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSlider } from '../../context/sliderContext';
 import Navigation from '../navigation/Navigation';
 import SliderList from './SliderList';
@@ -11,6 +11,7 @@ const Slider = () => {
     const { currentSlide, data } = state;
     const refContainer = useRef();
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
+    const [dragDir, setDragDir] = useState(false);
     const {
         dragOffset,
         isDragging,
@@ -18,14 +19,15 @@ const Slider = () => {
         handleDragMove,
         handleDragEnd,
     } = useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
-
-    const dragDir = isDragging 
-        ? (dragOffset < 0 && currentSlide < data.length - 1 
-            ? 'RTL' 
-            : dragOffset > 0 && currentSlide > 0 
-            ? 'LTR' 
-            : '')
-        : '';
+    
+    useEffect(() => {
+        setDragDir(prevDragDir => {
+          const newDragDir = dragOffset < 0 ? 'RTL' : dragOffset > 0 ? 'LTR' : '';
+          return prevDragDir !== newDragDir ? newDragDir : prevDragDir;
+        });
+      }, [dragOffset]);
+      
+   
   
     const attachDragEvents = {
         onMouseDown: handleDragStart,
@@ -40,7 +42,7 @@ const Slider = () => {
     return (
         <div className="slider">
             <div
-                className={`slider__wrapper ${dragDir}`}
+                className="slider__wrapper"
                 ref={refContainer}
                 {...attachDragEvents}
                 style={{
@@ -56,6 +58,7 @@ const Slider = () => {
                         containerWidth={containerWidth}
                         isDragging={isDragging}
                         isResizing={isResizing}
+                        dragDir={dragDir}
                     />
                 ) : (
                     <span className="slider__loader"/>

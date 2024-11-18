@@ -32,10 +32,14 @@ $animationDelay: 0.4s;
     &.isVisible {
         opacity: 1;
         filter: grayscale(0);
-        transform: scale(1);
+        z-index: 2;
     
         #{$this}-content {
             opacity: 1;
+        }
+        
+        #{$this}-image {
+            transition: none;
         }
     }
 
@@ -48,11 +52,13 @@ $animationDelay: 0.4s;
         z-index: 2;
         opacity: 1;
         width: 100%;
+        overflow: hidden;
         height: $slider_height_mobile;
-        background-position: center bottom;
+        background-position-x: center;
+        background-position-y: center;
         background-size: cover;
         background-repeat: no-repeat;
-
+        transition-delay: .8s;
         @include isLaptop {
             height: $slider_height;
         }

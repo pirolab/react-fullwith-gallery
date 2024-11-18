@@ -2,9 +2,12 @@ import React from "react";
 import "./SliderItem.scss";
 
 const SliderItem = (props) => {
-    const { index, currentSlide, slide } = props;
+    const { index, currentSlide, slide, dragOffset, dataLength, dragDir } = props;
     const { title, subtitle, leadImage, hash } = slide;
     const tagsArray = hash.split(" ").map((tag) => tag.replace("#", ""));
+    const isAtLeftBorder = dragDir === 'LTR' && currentSlide === 0;
+    const isAtRightBorder = dragDir === 'RTL' && currentSlide >= (dataLength - 1);
+    const stopAtBorder = isAtLeftBorder || isAtRightBorder;
 
     return (
         <>
@@ -12,7 +15,12 @@ const SliderItem = (props) => {
                 <li className={`slider__item ${index === currentSlide ? "isVisible" : ""}`}>
                     <div
                         className={"slider__item-image"}
-                        style={{ backgroundImage: `url(${leadImage})` }}
+                        style={{ 
+                            backgroundImage: `url(${leadImage})`,
+                                backgroundPositionX: !stopAtBorder && index === currentSlide 
+                                    ? `${dragOffset * -1 / 3}px` 
+                                    : '0',
+                        }}
                     />
                     <div className={"slider__item-content"}>
                         <div className="slider__item-content-wrapper">
