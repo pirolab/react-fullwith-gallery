@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSlider } from '../../context/sliderContext';
-import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from 'react-icons/md';
+import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
 import './Navigation.scss';
 
@@ -27,7 +27,7 @@ const Navigation = () => {
                     <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
 
                     <button className="slider__nav-prev" onClick={handlePrev}>
-                        <MdOutlineArrowBackIos />
+                        <SlArrowLeft />
                     </button>
 
                     <ul className="slider__nav-bullet">
@@ -41,7 +41,7 @@ const Navigation = () => {
                     </ul>
 
                     <button className="slider__nav-next" onClick={handleNext}>
-                        <MdOutlineArrowForwardIos />
+                        <SlArrowRight />
                     </button>
                 </div>
             )}

@@ -5,6 +5,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
     const startPos = useRef({ x: 0, y: 0 });
+    const trashHold = containerWidth / 3;
 
     const lastDragOffset = useRef(0);
     const isDragEndDelay = useRef(false);
@@ -33,7 +34,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
     const handleDragEnd = () => {
         if (!isDragging) return;
         setIsDragging(false);
-        if (Math.abs(dragOffset) > containerWidth / 5) {
+        if (Math.abs(dragOffset) > trashHold) {
             if (dragOffset < 0 && currentSlide < dataLength - 1) {
                 dispatch({ type: "NEXT" });
             } else if (dragOffset > 0 && currentSlide > 0) {
@@ -46,7 +47,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
         isDragEndDelay.current = true;
         setTimeout(() => {
             isDragEndDelay.current = false;
-        }, 300);
+        }, 600);
     };
 
     return {

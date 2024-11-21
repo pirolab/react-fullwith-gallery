@@ -77,6 +77,7 @@
         z-index: 2;
         border-radius: 3rem;
         padding: 1rem;
+        gap: 2rem;
         display: none;
 
         @include isTablet {
@@ -89,7 +90,6 @@
             background: $nav_bg;
             border-radius: 3rem;
             cursor: pointer;
-            margin: 0 .9rem;
             transition: transform .6s, background .3s, ;
 
             &:hover {
