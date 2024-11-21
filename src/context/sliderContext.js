@@ -49,11 +49,22 @@ export const SliderProvider = ({ children, url }) => {
     }, [data]);
 
     if (isLoading) {
-        return <span className="slider__loader"/>;
-    }
+        return <>
+            <div className='slider'>
+                <span className="slider__loader">
+                    <b>loading...</b>
+                </span>
+            </div>
+        </>}
 
     if (error) {
-        return <div>Error loading data: {error.message}</div>;
+        return (
+            <>
+                <div className='slider'>
+                    <h2 style={{color:'white', textAlign: 'center'}}>Error: <b>{error.message}</b></h2>
+                </div>
+            </>
+        );
     }
 
     return (

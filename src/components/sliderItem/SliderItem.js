@@ -18,25 +18,26 @@ const SliderItem = ({
         hash
     } = slide || {};
 
-    const tagsArray = hash.split(" ").map((tag) => tag.replace("#", ""));
+    const tagsArray = hash.split(' ').map((tag) => tag.replace('#', ''));
     const isAtLeftLimit = dragDir === 'LTR' && currentSlide === 0;
     const isAtRightLimit = dragDir === 'RTL' && currentSlide >= (dataLength - 1);
     const restrictToBounds = isAtLeftLimit || isAtRightLimit;
-    const itemClass = `slider__item ${index === currentSlide ? "isVisible" : ""}`;
+    const itemClass = `slider__item ${index === currentSlide ? 'isVisible' : ''}`;
 
     const getBgPositionX = (i, current, offset, limit) => {
         if (limit) return '0';
         return i === current
-            ? `${offset * -1 / 2}px`
-            : `${-offset * -1 / 6}px`;
+            ? `${Math.round(offset * -1 / 2)}px`
+            : `${Math.round(-offset * -1 / 6)}px`;
     };
-
+    
+    
     const getTransitionTime = (i, current, isDragging) => {
         return isDragging
             ? 'none'
-            : `all .6s ${i === current && !isDragging
-                ? '.2s'
-                : '.8s'}`
+            : `all 0.6s ${i === current && !isDragging
+                ? '0.2s'
+                : '2s'}`
     };
 
     if (!slide) return null;

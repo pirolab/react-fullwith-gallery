@@ -31,27 +31,47 @@
         display: flex;
     }
 
-    &__loader {
-        display: block;
-        bottom: 0;
-        left: 0;
-        padding: 3px;
-        position: absolute;
-        z-index: 11;
-        height: 1.2rem;
-        width: 100%;
-        background: $black;
-        overflow: hidden;
 
+    &__loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $loader;
+        font-family: Consolas, Menlo, Monaco, monospace;
+        font-weight: bold;
+        font-size: 4rem;
+        opacity: 0.8;
+        display: flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+
+        &:before {
+            content: "{";
+            animation: pulse 0.4s alternate infinite ease-in-out;
+        }
+        & b {
+            font-size: 4rem;
+            animation: pulse 0.4s 0.8s alternate infinite ease-in-out;
+            transform: none!important;
+        }
         &:after {
-            content: "";
-            display: block;
-            height: 100%;
-            background: $loader;
-            animation: 1s prog ease infinite;
+            content: "}";
+            animation: pulse 0.4s 1.2s alternate infinite ease-in-out;
+        }
+    }
+
+    @keyframes pulse {
+        to {
+            transform: scale(1.4);
+            opacity: 0.5;
         }
     }
 }
+
 
 .error_msg {
     color: $white;

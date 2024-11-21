@@ -1,14 +1,10 @@
 // COLORS
 $main_backgroud : #000000;
 $nav_bg : #0000007e;
-$bg_btn : #064ba2;
 $link_hover : #6baeff;
-$loader: #e99e14;
+$loader: #fff;
 $white : white;
 $black :black;
-$light_green : #6099ee;
-$dark_green: rgba(8, 15, 40, 0.9);
-$dark_green_alpha: rgba(0, 0, 0, 0.6);
 
 // ANIMATION TIMING
 $duration : 1.6180339887s;
@@ -17,6 +13,6 @@ $easeInOutCirc :cubic-bezier(0.7, 0.1, 0.1, 0.8);
 
 // SLIDER HEIGHT (px, em, rem)
 $slider_height: 80vh;
-$slider_height_mobile: 60svh;
 $slider_min-height: 55rem;
+$slider_height_mobile: 60svh;
 $slider_min-height_mobile: 35rem;

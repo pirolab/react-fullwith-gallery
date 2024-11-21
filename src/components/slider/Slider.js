@@ -70,7 +70,7 @@ const Slider = () => {
                     touchAction: isTouchStart ? 'none' : 'pan-y',
                 }}
             >
-                {data.length > 0 ? (
+                {data.length > 0 && (
                     <SliderList
                         data={data}
                         currentSlide={currentSlide}
@@ -80,8 +80,6 @@ const Slider = () => {
                         isResizing={isResizing}
                         dragDir={dragDir}
                     />
-                ) : (
-                    <span className="slider__loader" />
                 )}
             </div>
             {data.length > 0 && (
