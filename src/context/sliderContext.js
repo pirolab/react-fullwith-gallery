@@ -32,12 +32,13 @@ const sliderReducer = (state, action) => {
     }
 };
 
-export const SliderProvider = ({ children, url }) => {
+export const SliderProvider = ({ children, url, sizeConfig }) => {
     const { data, error, isLoading } = useDataFetch(url);
 
     const initialState = {
         data: [],
         currentSlide: 0,
+        sizeConfig: sizeConfig
     };
 
     const [state, dispatch] = useReducer(sliderReducer, initialState);

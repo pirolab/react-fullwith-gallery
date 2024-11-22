@@ -8,7 +8,7 @@ import './Slider.scss';
 
 const Slider = () => {
     const { state, dispatch } = useSlider();
-    const { currentSlide, data } = state;
+    const { currentSlide, data, sizeConfig } = state;
     const refContainer = useRef();
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
     const [dragDir, setDragDir] = useState(false);
@@ -21,7 +21,7 @@ const Slider = () => {
         handleDragMove,
         handleDragEnd,
     } = useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
-        
+
     const handleTouchStart = useCallback((e) => {
         setisTouchStart(true);
         handleDragStart(e);
@@ -47,7 +47,7 @@ const Slider = () => {
             container.removeEventListener('touchstart', handleTouchStart);
             container.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [handleTouchStart,handleTouchEnd]);
+    }, [handleTouchStart, handleTouchEnd]);
 
     const attachDragEvents = {
         onMouseDown: handleDragStart,
@@ -59,33 +59,54 @@ const Slider = () => {
         onTouchEnd: handleDragEnd,
     };
 
+    const styles = `
+        .slider,
+        .slider__item,
+        .slider__item-image {
+            height: ${sizeConfig.heightMobile};
+            min-height: ${sizeConfig.minHeightMobile};
+        }
+
+        @media (min-width: 768px) {
+            .slider,
+            .slider__item,
+            .slider__item-image {
+                height: ${sizeConfig.height};
+                min-height: ${sizeConfig.minHeight};
+            }
+        }
+    `;
+    
     return (
-        <div className="slider">
-            <div
-                className="slider__wrapper"
-                ref={refContainer}
-                {...attachDragEvents}
-                style={{
-                    cursor: isDragging ? 'grabbing' : 'grab',
-                    touchAction: isTouchStart ? 'none' : 'pan-y',
-                }}
-            >
+        <>
+            <style>{styles}</style>
+            <div className="slider">
+                <div
+                    className="slider__wrapper"
+                    ref={refContainer}
+                    {...attachDragEvents}
+                    style={{
+                        cursor: isDragging ? 'grabbing' : 'grab',
+                        touchAction: isTouchStart ? 'none' : 'pan-y',
+                    }}
+                >
+                    {data.length > 0 && (
+                        <SliderList
+                            data={data}
+                            currentSlide={currentSlide}
+                            dragOffset={dragOffset}
+                            containerWidth={containerWidth}
+                            isDragging={isDragging}
+                            isResizing={isResizing}
+                            dragDir={dragDir}
+                        />
+                    )}
+                </div>
                 {data.length > 0 && (
-                    <SliderList
-                        data={data}
-                        currentSlide={currentSlide}
-                        dragOffset={dragOffset}
-                        containerWidth={containerWidth}
-                        isDragging={isDragging}
-                        isResizing={isResizing}
-                        dragDir={dragDir}
-                    />
+                    <Navigation currentSlide={currentSlide} data={data} />
                 )}
             </div>
-            {data.length > 0 && (
-                <Navigation currentSlide={currentSlide} data={data} />
-            )}
-        </div>
+        </>
     );
 };
 

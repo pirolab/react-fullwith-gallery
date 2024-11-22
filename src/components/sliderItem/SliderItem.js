@@ -25,9 +25,9 @@ const SliderItem = ({
     const itemClass = `slider__item ${index === currentSlide ? 'isVisible' : ''}`;
 
     const getBgPositionX = (i, current, offset, limit) => {
-        if (limit) return '0';
+        if (limit) return 'center';
         return i === current
-            ? `${Math.round(offset * -1 / 2)}px`
+            ? `${Math.round(offset * -1 / 6)}px`
             : `${Math.round(-offset * -1 / 6)}px`;
     };
     
@@ -36,7 +36,7 @@ const SliderItem = ({
         return isDragging
             ? 'none'
             : `all 0.6s ${i === current && !isDragging
-                ? '0.2s'
+                ? '0.1s'
                 : '2s'}`
     };
 
@@ -48,7 +48,7 @@ const SliderItem = ({
                 className="slider__item-image"
                 style={{
                     backgroundImage: `url(${leadImage})`,
-                    backgroundPositionX: getBgPositionX(index, currentSlide, dragOffset, restrictToBounds),
+                    transform: `translateX(${getBgPositionX(index, currentSlide, dragOffset, restrictToBounds)})`,
                     transition: getTransitionTime(index, currentSlide, dragOffset, isDragging)
 
                 }}

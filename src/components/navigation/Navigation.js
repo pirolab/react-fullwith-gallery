@@ -22,14 +22,9 @@ const Navigation = () => {
 
     return (
         <>
+            <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
             {data && (
                 <div className="slider__nav">
-                    <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
-
-                    <button className="slider__nav-prev" onClick={handlePrev}>
-                        <SlArrowLeft />
-                    </button>
-
                     <ul className="slider__nav-bullet">
                         {data.map((_, index) => (
                             <li
@@ -39,12 +34,14 @@ const Navigation = () => {
                             />
                         ))}
                     </ul>
-
-                    <button className="slider__nav-next" onClick={handleNext}>
-                        <SlArrowRight />
-                    </button>
                 </div>
             )}
+            <button className="slider__nav-prev" onClick={handlePrev}>
+                <SlArrowLeft />
+            </button>
+            <button className="slider__nav-next" onClick={handleNext}>
+                <SlArrowRight />
+            </button>
         </>
     );
 };
