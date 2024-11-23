@@ -11,16 +11,19 @@ const sliderReducer = (state, action) => {
             return {
                 ...state,
                 currentSlide: (state.currentSlide + 1) % state.data.length,
+                limit:  1
             };
         case 'PREV':
             return {
                 ...state,
                 currentSlide: (state.currentSlide - 1 + state.data.length) % state.data.length,
+                limit:  1
             };
         case 'BULLET':
             return {
                 ...state,
                 currentSlide: action.index % state.data.length,
+                limit:  Math.abs(state.currentSlide - action.index)
             };
         case 'SET_DATA':
             return {

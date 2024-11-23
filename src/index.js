@@ -9,9 +9,9 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 const sizeConfig = {
-    height: '70vh',
-    minHeight: '40rem',
-    heightMobile: '100svh',
+    height: '80vh',
+    minHeight: '60rem',
+    heightMobile: '40svh',
     minHeightMobile: '30rem'
 }
 

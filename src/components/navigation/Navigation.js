@@ -9,15 +9,19 @@ const Navigation = () => {
     const { data, currentSlide } = state;
 
     const handleNext = () => {
-        dispatch({ type: 'NEXT', dataLength: data.length });
+        dispatch({ type: 'NEXT', dataLength: data.length, limit: 1 });
     };
 
     const handlePrev = () => {
-        dispatch({ type: 'PREV', dataLength: data.length });
+        dispatch({ type: 'PREV', dataLength: data.length, limit: 1 });
     };
 
     const handleBullet = (index) => {
-        dispatch({ type: 'BULLET', index, dataLength: data.length });
+        dispatch({ 
+            type: 'BULLET', 
+            index, 
+            dataLength: data.length, 
+            limit: (Math.abs(currentSlide - index)) })
     };
 
     return (

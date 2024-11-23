@@ -8,7 +8,7 @@ import './Slider.scss';
 
 const Slider = () => {
     const { state, dispatch } = useSlider();
-    const { currentSlide, data, sizeConfig } = state;
+    const { currentSlide, data, sizeConfig, limit } = state;
     const refContainer = useRef();
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
     const [dragDir, setDragDir] = useState(false);
@@ -99,6 +99,7 @@ const Slider = () => {
                             isDragging={isDragging}
                             isResizing={isResizing}
                             dragDir={dragDir}
+                            limit={limit}
                         />
                     )}
                 </div>
