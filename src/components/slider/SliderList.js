@@ -15,7 +15,7 @@ const SliderList = (props) => {
     const { state } = useSlider();
     const { eventType, limit, currentSlide, data } = state;
     const slidePosition = -(containerWidth * currentSlide) + dragOffset;
-    let speedLimit = eventType === 'bullet' ?  0.6 + ((Number(limit) / 10) * 2) : 0.6;
+    const animationSpeed = eventType === 'bullet' ?  0.6 + ((Number(limit) / 10) * 2) : 0.8;
     
     return (
         <ul
@@ -25,7 +25,7 @@ const SliderList = (props) => {
                 transform: `translateX(${slidePosition}px)`,
                 transition: isDragging || isResizing 
                     ? "none" 
-                    : `transform ${speedLimit}s cubic-bezier(0.25, 1, 0.5, 1)`
+                    : `transform ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`
             }}
         >
             {data.map((slide, index) => (

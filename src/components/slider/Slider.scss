@@ -1,6 +1,31 @@
 @use "../../sass/variables" as *;
 @use "../../sass/mediaQueries" as *;
 
+
+:root {
+    --slider-height-mobile: 40svh;
+    --slider-min-height-mobile: 30rem;
+    --slider-height: 80vh;
+    --slider-min-height: 60rem;
+}
+
+.slider,
+.slider__item,
+.slider__item-image {
+    height: var(--slider-height-mobile);
+    min-height: var(--slider-min-height-mobile);
+}
+
+@include isTablet {
+    .slider,
+    .slider__item,
+    .slider__item-image {
+        height: var(--slider-height);
+        min-height: var(--slider-min-height);
+    }
+}
+
+
 .slider {
     position: relative;
     margin: 0 auto;

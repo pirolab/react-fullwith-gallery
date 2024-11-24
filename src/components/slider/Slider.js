@@ -10,6 +10,7 @@ const Slider = () => {
     const { state, dispatch } = useSlider();
     const { currentSlide, data, sizeConfig } = state;
     const refContainer = useRef();
+    const refSlider = useRef();
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
     const [dragDir, setDragDir] = useState(false);
     const [isTouchStart, setisTouchStart] = useState(false);
@@ -49,6 +50,14 @@ const Slider = () => {
         };
     }, [handleTouchStart, handleTouchEnd]);
 
+    useEffect(() => {
+        const root = refSlider.current;
+        root.style.setProperty('--slider-height-mobile', sizeConfig.heightMobile);
+        root.style.setProperty('--slider-min-height-mobile', sizeConfig.minHeightMobile);
+        root.style.setProperty('--slider-height', sizeConfig.height);
+        root.style.setProperty('--slider-min-height', sizeConfig.minHeight);
+    }, [sizeConfig]);
+
     const attachDragEvents = {
         onMouseDown: handleDragStart,
         onMouseMove: handleDragMove,
@@ -58,29 +67,10 @@ const Slider = () => {
         onTouchMove: handleDragMove,
         onTouchEnd: handleDragEnd,
     };
-
-    const styles = `
-        .slider,
-        .slider__item,
-        .slider__item-image {
-            height: ${sizeConfig.heightMobile};
-            min-height: ${sizeConfig.minHeightMobile};
-        }
-
-        @media (min-width: 768px) {
-            .slider,
-            .slider__item,
-            .slider__item-image {
-                height: ${sizeConfig.height};
-                min-height: ${sizeConfig.minHeight};
-            }
-        }
-    `;
     
     return (
         <>
-            <style>{styles}</style>
-            <div className="slider">
+            <div className="slider" ref={refSlider}>
                 <div
                     className="slider__wrapper"
                     ref={refContainer}
