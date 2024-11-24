@@ -15,16 +15,18 @@ const SliderList = (props) => {
     const { state } = useSlider();
     const { eventType, limit, currentSlide, data } = state;
     const slidePosition = -(containerWidth * currentSlide) + dragOffset;
-    const animationSpeed = eventType === 'bullet' ?  0.6 + ((Number(limit) / 10) * 2) : 0.8;
-    
+    const animationSpeed = eventType === 'bullet'
+        ? 0.6 + ((Number(limit) / 10) * 4)
+        : 1.6;
+
     return (
         <ul
             className="slider__list"
             style={{
                 width: containerWidth * data.length,
                 transform: `translateX(${slidePosition}px)`,
-                transition: isDragging || isResizing 
-                    ? "none" 
+                transition: isDragging || isResizing
+                    ? "none"
                     : `transform ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`
             }}
         >
