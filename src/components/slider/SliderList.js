@@ -1,21 +1,21 @@
 // components/SliderList.js
 import React from 'react';
 import SliderItem from "../sliderItem/SliderItem";
+import { useSlider } from '../../context/sliderContext';
 
 const SliderList = (props) => {
     const {
-        data,
-        currentSlide,
         dragOffset,
         containerWidth,
         isDragging,
         isResizing,
-        dragDir,
-        limit
+        dragDir
     } = props;
 
+    const { state } = useSlider();
+    const { eventType, limit, currentSlide, data } = state;
     const slidePosition = -(containerWidth * currentSlide) + dragOffset;
-    const speedLimit = 0.6 + ((Number(limit) / 10) * 2);
+    let speedLimit = eventType === 'bullet' ?  0.6 + ((Number(limit) / 10) * 2) : 0.6;
     
     return (
         <ul

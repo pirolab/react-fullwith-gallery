@@ -17,6 +17,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
         const clientY = e.clientY || e.touches[0].clientY;
         startPos.current = { x: clientX, y: clientY };
         setDragOffset(0);
+        dispatch({ type: "DRAG", eventType: 'drag' });
     };
 
     const handleDragMove = (e) => {

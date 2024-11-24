@@ -9,11 +9,21 @@ const Navigation = () => {
     const { data, currentSlide } = state;
 
     const handleNext = () => {
-        dispatch({ type: 'NEXT', dataLength: data.length, limit: 1 });
+        dispatch({ 
+            type: 'NEXT', 
+            dataLength: data.length, 
+            limit: 1
+        });
+        dispatch({ type: "DRAG", eventType: 'drag' });
     };
 
     const handlePrev = () => {
-        dispatch({ type: 'PREV', dataLength: data.length, limit: 1 });
+        dispatch({ 
+            type: 'PREV', 
+            dataLength: data.length, 
+            limit: 1
+        });
+        dispatch({ type: "DRAG", eventType: 'drag' });
     };
 
     const handleBullet = (index) => {
@@ -21,7 +31,9 @@ const Navigation = () => {
             type: 'BULLET', 
             index, 
             dataLength: data.length, 
-            limit: (Math.abs(currentSlide - index)) })
+            limit: (Math.abs(currentSlide - index)), 
+            eventType: 'bullet'
+        })
     };
 
     return (

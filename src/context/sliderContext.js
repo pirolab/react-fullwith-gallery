@@ -19,11 +19,17 @@ const sliderReducer = (state, action) => {
                 currentSlide: (state.currentSlide - 1 + state.data.length) % state.data.length,
                 limit:  1
             };
+        case 'DRAG':
+            return {
+                ...state,
+                eventType: 'drag'
+            };            
         case 'BULLET':
             return {
                 ...state,
                 currentSlide: action.index % state.data.length,
-                limit:  Math.abs(state.currentSlide - action.index)
+                limit:  Math.abs(state.currentSlide - action.index),
+                eventType: 'bullet'
             };
         case 'SET_DATA':
             return {
