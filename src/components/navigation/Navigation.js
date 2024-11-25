@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSlider } from '../../context/sliderContext';
-import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
+import { TiArrowLeft , TiArrowRight} from "react-icons/ti";
 
 import './Navigation.scss';
 
@@ -60,7 +60,7 @@ const Navigation = () => {
                             style={{
                                 left: leftStyle,
                                 transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`
-                        }}/>
+                        }}></li>
                     </ul>
 
                 </div>
@@ -69,13 +69,13 @@ const Navigation = () => {
                 className={`slider__nav-prev ${state.currentSlide === 0 ? 'isDisabled' : ''}`} 
                 onClick={handlePrev}
             >
-                <SlArrowLeft />
+                <TiArrowLeft />
             </button>
             <button 
                 className={`slider__nav-next ${state.currentSlide === state.data.length - 1 ? 'isDisabled' : ''}`} 
                 onClick={handleNext}
             >
-                <SlArrowRight />
+                <TiArrowRight />
             </button>
 
         </>
