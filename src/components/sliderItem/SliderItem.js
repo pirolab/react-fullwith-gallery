@@ -1,15 +1,17 @@
 import React from "react";
 import "./SliderItem.scss";
 
-const SliderItem = ({
-    index,
-    currentSlide,
-    slide,
-    dragOffset,
-    dataLength,
-    dragDir,
-    isDragging
-}) => {
+const SliderItem = (props) => {
+    
+    const {
+        index,
+        currentSlide,
+        slide,
+        dragOffset,
+        dataLength,
+        dragDir,
+        isDragging
+    } = props;
 
     const {
         title,
@@ -37,7 +39,7 @@ const SliderItem = ({
             ? 'none'
             : `all 0.6s ${i === current && !isDragging
                 ? '0.1s'
-                : '2s'}`
+                : '1s'}`
     };
 
     if (!slide) return null;

@@ -17,7 +17,7 @@ const SliderList = (props) => {
     const slidePosition = -(containerWidth * currentSlide) + dragOffset;
     const animationSpeed = eventType === 'bullet'
         ? 0.6 + ((Number(limit) / 10) * 4)
-        : 1.6;
+        : 1.2;
 
     return (
         <ul

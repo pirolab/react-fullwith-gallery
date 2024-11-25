@@ -6,8 +6,14 @@ import './Navigation.scss';
 
 const Navigation = () => {
     const { state, dispatch } = useSlider();
-    const { data, currentSlide } = state;
+    const { data, currentSlide,  eventType, limit  } = state;
+    const slidePositionPercentage = currentSlide * data.length; 
+    const slideOffset = (currentSlide * 1) / data.length;
+    const leftStyle = `calc(${slidePositionPercentage}% + ${slideOffset}rem)`;
 
+    const animationSpeed = eventType === 'bullet'
+        ? 0.6 + ((Number(limit) / 10) * 4)
+        : 1.2;
     const handleNext = () => {
         dispatch({ 
             type: 'NEXT', 
@@ -36,6 +42,7 @@ const Navigation = () => {
         })
     };
 
+
     return (
         <>
             <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
@@ -49,15 +56,28 @@ const Navigation = () => {
                                 onClick={() => handleBullet(index)}
                             />
                         ))}
+                        <li className='slider__nav-bullet-item isProgress' 
+                            style={{
+                                left: leftStyle,
+                                transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`
+                        }}/>
                     </ul>
+
                 </div>
             )}
-            <button className="slider__nav-prev" onClick={handlePrev}>
+            <button 
+                className={`slider__nav-prev ${state.currentSlide === 0 ? 'isDisabled' : ''}`} 
+                onClick={handlePrev}
+            >
                 <SlArrowLeft />
             </button>
-            <button className="slider__nav-next" onClick={handleNext}>
+            <button 
+                className={`slider__nav-next ${state.currentSlide === state.data.length - 1 ? 'isDisabled' : ''}`} 
+                onClick={handleNext}
+            >
                 <SlArrowRight />
             </button>
+
         </>
     );
 };

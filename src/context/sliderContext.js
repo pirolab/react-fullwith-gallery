@@ -10,13 +10,13 @@ const sliderReducer = (state, action) => {
         case 'NEXT':
             return {
                 ...state,
-                currentSlide: (state.currentSlide + 1) % state.data.length,
+                currentSlide: Math.min(state.currentSlide + 1, state.data.length - 1),
                 limit:  1
             };
         case 'PREV':
             return {
                 ...state,
-                currentSlide: (state.currentSlide - 1 + state.data.length) % state.data.length,
+                currentSlide: Math.max(state.currentSlide - 1, 0),
                 limit:  1
             };
         case 'DRAG':

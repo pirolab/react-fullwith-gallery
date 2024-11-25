@@ -11,7 +11,7 @@ const root = createRoot(container);
 const sizeConfig = {
     height: '80vh',
     minHeight: '60rem',
-    heightMobile: '40svh',
+    heightMobile: '90svh',
     minHeightMobile: '30rem'
 }
 

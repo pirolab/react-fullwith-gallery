@@ -90,9 +90,7 @@ const Slider = () => {
                         />
                     )}
                 </div>
-                {data.length > 0 && (
-                    <Navigation currentSlide={currentSlide} data={data} />
-                )}
+                {data.length > 0 && ( <Navigation />)}
             </div>
         </>
     );
