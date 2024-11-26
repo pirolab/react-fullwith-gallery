@@ -1,7 +1,8 @@
 // components/SliderList.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SliderItem from "../sliderItem/SliderItem";
 import { useSlider } from '../../context/sliderContext';
+import { calculateAnimationSpeed } from '../../helper';
 
 const SliderList = (props) => {
     const {
@@ -15,9 +16,21 @@ const SliderList = (props) => {
     const { state } = useSlider();
     const { eventType, limit, currentSlide, data } = state;
     const slidePosition = -(containerWidth * currentSlide) + dragOffset;
-    const animationSpeed = eventType === 'bullet'
-        ? 0.6 + ((Number(limit) / 10) * 4)
-        : 1.2;
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const animationSpeed = calculateAnimationSpeed(eventType, limit);
+
+    const transitionStyle = isDragging || isResizing
+        ? "none"
+        : `transform ${animationSpeed}s ${isMobile ? 'ease' : 'cubic-bezier(0.25, 1, 0.5, 1)'}`;
 
     return (
         <ul
@@ -25,17 +38,13 @@ const SliderList = (props) => {
             style={{
                 width: containerWidth * data.length,
                 transform: `translateX(${slidePosition}px)`,
-                transition: isDragging || isResizing
-                    ? "none"
-                    : `transform ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`
+                transition: transitionStyle,
             }}
         >
             {data.map((slide, index) => (
                 <SliderItem
                     key={index}
-                    slide={slide}
                     index={index}
-                    currentSlide={currentSlide}
                     dragOffset={dragOffset}
                     dataLength={data.length}
                     dragDir={dragDir}

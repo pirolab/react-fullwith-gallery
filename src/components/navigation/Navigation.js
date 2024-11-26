@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSlider } from '../../context/sliderContext';
 import { TiArrowLeft , TiArrowRight} from "react-icons/ti";
+import { calculateAnimationSpeed } from '../../helper';
 
 import './Navigation.scss';
 
@@ -10,10 +11,8 @@ const Navigation = () => {
     const slidePositionPercentage = currentSlide * data.length; 
     const slideOffset = (currentSlide * 1) / data.length;
     const leftStyle = `calc(${slidePositionPercentage}% + ${slideOffset}rem)`;
+    const animationSpeed = calculateAnimationSpeed(eventType, limit);
 
-    const animationSpeed = eventType === 'bullet'
-        ? 0.6 + ((Number(limit) / 10) * 4)
-        : 1.2;
     const handleNext = () => {
         dispatch({ 
             type: 'NEXT', 
@@ -42,7 +41,6 @@ const Navigation = () => {
         })
     };
 
-
     return (
         <>
             <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
@@ -60,9 +58,8 @@ const Navigation = () => {
                             style={{
                                 left: leftStyle,
                                 transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`
-                        }}></li>
+                        }}/>
                     </ul>
-
                 </div>
             )}
             <button 
@@ -77,7 +74,6 @@ const Navigation = () => {
             >
                 <TiArrowRight />
             </button>
-
         </>
     );
 };

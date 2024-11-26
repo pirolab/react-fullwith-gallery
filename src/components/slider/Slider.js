@@ -1,62 +1,35 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSlider } from '../../context/sliderContext';
 import Navigation from '../navigation/Navigation';
 import SliderList from './SliderList';
 import { useSliderDrag } from '../../hooks/useSliderDrag';
 import { useResizeObserver } from '../../hooks/useResizeObserver';
+import { useCSSVariables } from '../../hooks/useCSSVariables';
+import { useTouchEvents } from '../../hooks/useTouchEvents';
+
 import './Slider.scss';
 
 const Slider = () => {
     const { state, dispatch } = useSlider();
     const { currentSlide, data, sizeConfig } = state;
+
     const refContainer = useRef();
     const refSlider = useRef();
+
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
-    const [dragDir, setDragDir] = useState(false);
-    const [isTouchStart, setisTouchStart] = useState(false);
+    const [dragDir, setDragDir] = useState('');
+    const { dragOffset, isDragging, handleDragStart, handleDragMove, handleDragEnd } =
+        useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
 
-    const {
-        dragOffset,
-        isDragging,
-        handleDragStart,
-        handleDragMove,
-        handleDragEnd,
-    } = useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
-
-    const handleTouchStart = useCallback((e) => {
-        setisTouchStart(true);
-        handleDragStart(e);
-    }, [handleDragStart]);
-
-    const handleTouchEnd = useCallback((e) => {
-        setisTouchStart(false);
-        handleDragEnd(e);
-    }, [handleDragEnd]);
+    const [isTouchStart, setIsTouchStart] = useState(false);
 
     useEffect(() => {
-        setDragDir(prevDragDir => {
-            const newDragDir = dragOffset < 0 ? 'RTL' : dragOffset > 0 ? 'LTR' : '';
-            return prevDragDir !== newDragDir ? newDragDir : prevDragDir;
-        });
+        const newDragDir = dragOffset < 0 ? 'RTL' : dragOffset > 0 ? 'LTR' : '';
+        setDragDir(newDragDir);
     }, [dragOffset]);
 
-    useEffect(() => {
-        const container = refContainer.current;
-        container.addEventListener('touchstart', handleTouchStart);
-        container.addEventListener('touchend', handleTouchEnd);
-        return () => {
-            container.removeEventListener('touchstart', handleTouchStart);
-            container.removeEventListener('touchend', handleTouchEnd);
-        };
-    }, [handleTouchStart, handleTouchEnd]);
-
-    useEffect(() => {
-        const root = refSlider.current;
-        root.style.setProperty('--slider-height-mobile', sizeConfig.heightMobile);
-        root.style.setProperty('--slider-min-height-mobile', sizeConfig.minHeightMobile);
-        root.style.setProperty('--slider-height', sizeConfig.height);
-        root.style.setProperty('--slider-min-height', sizeConfig.minHeight);
-    }, [sizeConfig]);
+    useCSSVariables(refSlider, sizeConfig);
+    useTouchEvents(refContainer, handleDragStart, handleDragMove, handleDragEnd, setIsTouchStart);
 
     const attachDragEvents = {
         onMouseDown: handleDragStart,
@@ -67,32 +40,30 @@ const Slider = () => {
         onTouchMove: handleDragMove,
         onTouchEnd: handleDragEnd,
     };
-    
+
     return (
-        <>
-            <div className="slider" ref={refSlider}>
-                <div
-                    className="slider__wrapper"
-                    ref={refContainer}
-                    {...attachDragEvents}
-                    style={{
-                        cursor: isDragging ? 'grabbing' : 'grab',
-                        touchAction: isTouchStart ? 'none' : 'pan-y',
-                    }}
-                >
-                    {data.length > 0 && (
-                        <SliderList
-                            dragOffset={dragOffset}
-                            containerWidth={containerWidth}
-                            isDragging={isDragging}
-                            isResizing={isResizing}
-                            dragDir={dragDir}
-                        />
-                    )}
-                </div>
-                {data.length > 0 && ( <Navigation />)}
+        <div className="slider" ref={refSlider}>
+            <div
+                className="slider__wrapper"
+                ref={refContainer}
+                {...attachDragEvents}
+                style={{
+                    cursor: isDragging ? 'grabbing' : 'grab',
+                    touchAction: isTouchStart ? 'none' : 'pan-y',
+                }}
+            >
+                {data.length > 0 && (
+                    <SliderList
+                        dragOffset={dragOffset}
+                        containerWidth={containerWidth}
+                        isDragging={isDragging}
+                        isResizing={isResizing}
+                        dragDir={dragDir}
+                    />
+                )}
             </div>
-        </>
+            {data.length > 0 && <Navigation />}
+        </div>
     );
 };
 

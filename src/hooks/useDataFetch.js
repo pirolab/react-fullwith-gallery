@@ -8,12 +8,12 @@ export const useDataFetch = (url) => {
     useEffect(() => {
         setIsLoading(true);
 
-        fetch(url , {
-                'mode': 'cors',
-                'headers': {
-                    'Access-Control-Allow-Origin': '*',
-                }
-            })
+        fetch(url, {
+            'mode': 'cors',
+            'headers': {
+                'Access-Control-Allow-Origin': '*',
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

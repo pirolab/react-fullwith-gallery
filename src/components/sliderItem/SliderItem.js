@@ -1,48 +1,29 @@
 import React from "react";
 import "./SliderItem.scss";
-
+import { getBgPositionX, getTransitionTime } from '../../helper';
+import { useSlider } from '../../context/sliderContext';
 const SliderItem = (props) => {
     
     const {
         index,
-        currentSlide,
-        slide,
+        dragDir,
         dragOffset,
         dataLength,
-        dragDir,
         isDragging
     } = props;
 
-    const {
-        title,
-        subtitle,
-        leadImage,
-        hash
-    } = slide || {};
+    const { state } = useSlider();
+    const { currentSlide, data } = state;
 
+    const { title, subtitle, leadImage, hash } = data[index] || {};
+    
     const tagsArray = hash.split(' ').map((tag) => tag.replace('#', ''));
     const isAtLeftLimit = dragDir === 'LTR' && currentSlide === 0;
     const isAtRightLimit = dragDir === 'RTL' && currentSlide >= (dataLength - 1);
     const restrictToBounds = isAtLeftLimit || isAtRightLimit;
     const itemClass = `slider__item ${index === currentSlide ? 'isVisible' : ''}`;
 
-    const getBgPositionX = (i, current, offset, limit) => {
-        if (limit) return 'center';
-        return i === current
-            ? `${Math.round(offset * -1 / 6)}px`
-            : `${Math.round(-offset * -1 / 6)}px`;
-    };
-    
-    
-    const getTransitionTime = (i, current, isDragging) => {
-        return isDragging
-            ? 'none'
-            : `all 0.6s ${i === current && !isDragging
-                ? '0.1s'
-                : '1s'}`
-    };
-
-    if (!slide) return null;
+    if (!data[index]) return null;
 
     return (
         <li className={itemClass}>

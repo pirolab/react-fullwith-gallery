@@ -11,8 +11,8 @@ export const useResizeObserver = (ref) => {
                 setContainerWidth(ref.current.offsetWidth)
             }
             setTimeout(() => setIsResizing(false), 100);
-
         };
+        
         updateWidth();
         window.addEventListener("resize", updateWidth);
         return () => window.removeEventListener("resize", updateWidth);

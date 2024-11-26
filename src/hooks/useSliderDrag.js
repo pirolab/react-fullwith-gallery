@@ -1,15 +1,16 @@
 // hooks/useSliderDrag.js
 import { useState, useRef } from "react";
+import { ANIMATION_DURATION } from './../constants';
 
 export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch) => {
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
     const startPos = useRef({ x: 0, y: 0 });
-    const trashHold = containerWidth / 3;
-
     const lastDragOffset = useRef(0);
     const isDragEndDelay = useRef(false);
     
+    const trashHold = containerWidth / 6;
+
     const handleDragStart = (e) => {
         if (isDragEndDelay.current) return;
         setIsDragging(true);
@@ -22,6 +23,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
 
     const handleDragMove = (e) => {
         if (!isDragging) return;
+
         const clientX = e.clientX || (e.touches && e.touches[0]?.clientX);
         if (clientX === undefined) return;
 
@@ -34,6 +36,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
 
     const handleDragEnd = () => {
         if (!isDragging) return;
+
         setIsDragging(false);
         if (Math.abs(dragOffset) > trashHold) {
             if (dragOffset < 0 && currentSlide < dataLength - 1) {
@@ -42,13 +45,13 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
                 dispatch({ type: "PREV" });
             }
         }
+
         setDragOffset(0);
         lastDragOffset.current = 0;
-    
         isDragEndDelay.current = true;
         setTimeout(() => {
             isDragEndDelay.current = false;
-        }, 600);
+        }, ANIMATION_DURATION);
     };
 
     return {
