@@ -56,8 +56,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: $loader;
-        font-family: Consolas, Menlo, Monaco, monospace;
-        font-weight: bold;
         font-size: 4rem;
         opacity: 0.8;
         display: flex;
@@ -68,19 +66,19 @@
         width: 100%;
 
         &:before {
-            content: "{";
-            animation: pulse 0.4s alternate infinite ease-in-out;
+            content: "<";
+            animation: pulse 0.8s alternate infinite ease-in-out;
         }
 
         & b {
             font-size: 4rem;
-            animation: pulse 0.4s 0.8s alternate infinite ease-in-out;
+            animation: pulse 0.8s 1.6s alternate infinite ease-in-out;
             transform: none !important;
         }
 
         &:after {
-            content: "}";
-            animation: pulse 0.4s 1.2s alternate infinite ease-in-out;
+            content: "/>";
+            animation: pulse 0.8s 2.4s alternate infinite ease-in-out;
         }
     }
 
@@ -107,7 +105,6 @@
 
 @keyframes pulse {
     to {
-        transform: scale(1.4);
-        opacity: 0.5;
+        opacity: 0.2;
     }
 }
