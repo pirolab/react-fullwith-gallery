@@ -1,6 +1,6 @@
 // hooks/useSliderDrag.js
 import { useState, useRef } from "react";
-import { ANIMATION_DURATION } from './../constants';
+import { ANIMATION_DURATION } from './../constants/constants';
 
 export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch) => {
     const [isDragging, setIsDragging] = useState(false);

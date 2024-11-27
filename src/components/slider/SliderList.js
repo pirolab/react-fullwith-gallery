@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import SliderItem from "../sliderItem/SliderItem";
 import { useSlider } from '../../context/sliderContext';
-import { calculateAnimationSpeed } from '../../helper';
+import { calculateAnimationSpeed } from '../../helpers/helpers';
 
 const SliderList = (props) => {
     const {

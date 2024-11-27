@@ -1,6 +1,6 @@
 import React from "react";
 import "./SliderItem.scss";
-import { getBgPositionX, getTransitionTime } from '../../helper';
+import { getBgPositionX, getTransitionTime } from '../../helpers/helpers';
 import { useSlider } from '../../context/sliderContext';
 const SliderItem = (props) => {
     

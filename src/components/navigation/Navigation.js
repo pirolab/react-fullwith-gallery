@@ -1,7 +1,7 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useSlider } from '../../context/sliderContext';
 import { TiArrowLeft , TiArrowRight} from "react-icons/ti";
-import { calculateAnimationSpeed } from '../../helper';
+import { calculateAnimationSpeed } from '../../helpers/helpers';
 
 import './Navigation.scss';
 
@@ -12,6 +12,7 @@ const Navigation = () => {
     const slideOffset = (currentSlide * 1) / data.length;
     const leftStyle = `calc(${slidePositionPercentage}% + ${slideOffset}rem)`;
     const animationSpeed = calculateAnimationSpeed(eventType, limit);
+    const [isDelayedActive, setIsDelayedActive] = useState(false);
 
     const handleNext = () => {
         dispatch({ 
@@ -41,6 +42,15 @@ const Navigation = () => {
         })
     };
 
+    useEffect(() => {
+        setIsDelayedActive(false);
+        const timeoutDuration = animationSpeed * 800;
+        const timer = setTimeout(() => {
+            setIsDelayedActive(true);
+        }, timeoutDuration);
+        return () => clearTimeout(timer);
+    }, [currentSlide, animationSpeed]);
+
     return (
         <>
             <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
@@ -48,11 +58,14 @@ const Navigation = () => {
                 <div className="slider__nav">
                     <ul className="slider__nav-bullet">
                         {data.map((_, index) => (
-                            <li
-                                className={'slider__nav-bullet-item ' + (index === currentSlide ? 'isActive' : '')}
-                                key={index}
-                                onClick={() => handleBullet(index)}
-                            />
+                        <li
+                            key={index}
+                            className={
+                                'slider__nav-bullet-item ' +
+                                (isDelayedActive && index === currentSlide ? 'isActive' : '')
+                            }
+                            onClick={() => handleBullet(index)}
+                        />
                         ))}
                         <li className='slider__nav-bullet-item isProgress' 
                             style={{

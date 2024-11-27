@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { SliderProvider } from './context/sliderContext';
-import { SIZE_CONFIG, URL } from './constants';
+import { SIZE_CONFIG, URL } from './constants/constants';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
