@@ -109,7 +109,7 @@
             &.isActive {
                 &::after {
                     background: $slideActive;
-                    transform: translate(-50%, -50%) scale(.8);
+                    transform: translate(-50%, -50%) scale(.7);
                 }
             }
 
