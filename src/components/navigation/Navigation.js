@@ -9,9 +9,9 @@ const Navigation = () => {
     const { state, dispatch } = useSlider();
     const { data, currentSlide,  eventType, limit  } = state;
     const slidePositionPercentage = currentSlide * data.length; 
-    const slideOffset = (currentSlide * 1) / data.length;
+    const slideOffset = (currentSlide * .5) / data.length;
     const leftStyle = `calc(${slidePositionPercentage}% + ${slideOffset}rem)`;
-    const animationSpeed = calculateAnimationSpeed(eventType, limit);
+    const animationSpeed = calculateAnimationSpeed(eventType, (limit/1.5));
     const [isDelayedActive, setIsDelayedActive] = useState(false);
 
     const handleNext = () => {
@@ -57,9 +57,10 @@ const Navigation = () => {
             {data && (
                 <div className="slider__nav">
                     <ul className="slider__nav-bullet">
-                        {data.map((_, index) => (
+                        {data.map((item, index) => (
                         <li
                             key={index}
+                            style={{background: `url(${item.thumbnail}) center/cover no-repeat`}}
                             className={
                                 'slider__nav-bullet-item ' +
                                 (isDelayedActive && index === currentSlide ? 'isActive' : '')

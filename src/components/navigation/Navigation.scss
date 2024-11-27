@@ -11,7 +11,14 @@
     z-index: 5;
     padding: 0;
     justify-content: center;
-    
+    overflow-x: auto; /* Abilita lo scroll orizzontale */
+    overflow-y: hidden; /* Disabilita lo scroll verticale */
+    -webkit-overflow-scrolling: touch; /* Abilita lo scroll fluido su dispositivi touch */
+    scrollbar-width: none; /* Nasconde la scrollbar nei browser compatibili */
+    ::-webkit-scrollbar {
+        display: none; /* Nasconde la scrollbar nei browser basati su WebKit */
+      }
+      
     &-image-count {
         font-size: 1.4rem;
         color: $white;
@@ -71,7 +78,7 @@
         z-index: 2;
         padding: 1rem 0;
         display: none;
-        gap: 1rem;
+        gap: .5rem;
         position: relative;
 
         @include isTablet {
@@ -79,17 +86,18 @@
         }
 
         &-item {
-            width: 3rem;
-            height: 3rem;
+            width: 7rem;
+            height: 4rem;
             background: rgb($black, .3);
-            box-shadow: 0 0 .4rem 0 rgb($white, .6);
-            border-radius: 5rem;
+            box-shadow: 0 0 .4rem -.1rem rgb($black, .8);
             cursor: pointer;
             position: relative;
-            transition: background .3s;
-            z-index: 0;
+            transition:  transform .5s, background .3s;
+            z-index: 1;
+
             &:hover:not(.isProgress) {
-                background: rgb($black, .6);
+                transform: scale(.9);
+                z-index: 4;
             }
 
             &::after {
@@ -97,20 +105,16 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(-50%, -50%) scale(0);
+                transform: translate(-50%, -50%);
                 width: 100%;
                 height: 100%;
-                border-radius: 5rem;
                 transition: all .4s;
                 background: none;
                 border: 0  solid transparent;
             }
 
             &.isActive {
-                &::after {
-                    background: $slideActive;
-                    transform: translate(-50%, -50%) scale(.7);
-                }
+                pointer-events: none;
             }
 
             &.isProgress {
@@ -118,15 +122,14 @@
                 top: 50%;
                 transform: translateY(-50%);
                 left: 0;
-                z-index: 1;
+                z-index: 6;
                 box-shadow: none;
                 background: none;
                 cursor: auto;
                 &::after {
-                    transform: translate(-50%, -50%) scale(1);
-                    width: 100%;
-                    height:100%;
-                    border: .3rem  solid rgb($slideActive, .8);
+                    transform: translate(-50%, -50%);
+                    background: rgb($slideActive, .2);
+                    outline: .4rem  solid rgb($slideActive, .9);
                 }
             }
         }
