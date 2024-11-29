@@ -1,7 +1,7 @@
 /**
  * CSS animation isDragEndDelay.
  */
-export const ANIMATION_DURATION = 600;
+export const ANIMATION_MULTIPLIER  = 600;
 
 /**
  * Height & min-height of the slideshow

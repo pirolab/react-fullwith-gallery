@@ -2,10 +2,12 @@
 @use '../../sass/mediaQueries' as *;
 
 .slider__nav {
+    $thumbHeight: 5.5rem;
+    $height: calc($thumbHeight + 3rem);
     position: absolute;
     width: 100vw;
-    height: 6rem;
-    bottom: 0;
+    height: $height;
+    bottom: - calc($height / 2);
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
@@ -14,13 +16,14 @@
     &-bullet {
         position: absolute;
         list-style-type: none;
+        height: 100%;
         left: 50%;
         transform: translateX(-50%);
         max-width: 100vw;
         margin: 0;
         display: flex;
         gap: 0.5rem;
-        padding: 1rem 0.5rem;
+        padding: 1.5rem 0.5rem;
         overflow-x: scroll;
         scrollbar-width: none;
         -webkit-overflow-scrolling: touch;
@@ -36,11 +39,11 @@
         }
 
         &-item {
-            width: 7rem;
-            height: 4rem;
-            flex: 0 0 7rem;
+            width: 9rem;
+            height: $thumbHeight;
+            flex: 0 0 9rem;
             background: rgb($black, .3);
-            box-shadow: 0 0 .4rem -.1rem rgb($black, .8);
+            box-shadow: 0 0 0.4rem -0.1rem rgba(0, 0, 0, 0.8), 0 1.3rem 1rem -1rem rgb(0 0 0 / 50%);
             cursor: pointer;
             position: relative;
             transition: transform .5s, background .3s;

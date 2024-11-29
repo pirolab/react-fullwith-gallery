@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { ANIMATION_DURATION } from './../constants/constants';
-
+import { ANIMATION_MULTIPLIER  } from './../constants/constants';
+import { scrollToActiveSlide } from '../helpers/helpers';
 export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch) => {
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
@@ -11,15 +11,8 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
     const slider = document.querySelector('.slider__nav-bullet');
     const slides = document.querySelectorAll('.slider__nav-bullet-item');
 
-    const scrollToActiveSlide = (slider, activeSlide) => {
-        if (!slider || !activeSlide) return;
-        const parentWidth = slider.offsetWidth;  // Larghezza del contenitore
-        const childWidth = activeSlide.offsetWidth;  // Larghezza della slide attiva
-        const childPosition = activeSlide.offsetLeft;  // Posizione della slide nel carosello
-        const scrollOffset = childPosition - (parentWidth - childWidth) / 2;
-        slider.scrollLeft = scrollOffset;
-    };
-    
+
+
     const handleDragStart = (e) => {
         if (isDragEndDelay.current) return;
 
@@ -69,7 +62,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
     
         setTimeout(() => {
             isDragEndDelay.current = false;
-        }, ANIMATION_DURATION);
+        }, ANIMATION_MULTIPLIER );
     };
     
 

@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSlider } from '../../context/sliderContext';
 import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
-import { calculateAnimationSpeed } from '../../helpers/helpers';
+import {
+    calculateAnimationSpeed,
+    getScrollOffset,
+    calculateStyles,
+    scrollToSlide
+} from '../../helpers/helpers';
 
 import './Navigation.scss';
 
@@ -14,22 +19,6 @@ const Navigation = () => {
     const [leftStyle, setLeftStyle] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0);
 
-    const scrollToSlide = (index) => {
-        if (refItem.current) {
-            const children = refItem.current.children;
-            const targetChild = children[index];
-            if (targetChild) {
-                const containerWidth = refItem.current.clientWidth;
-                const childWidth = targetChild.offsetWidth;
-                const scrollOffset = targetChild.offsetLeft - (containerWidth / 2) + (childWidth / 2);
-                refItem.current.scrollTo({
-                    left: scrollOffset,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    };
-
     const handleNext = () => {
         dispatch({
             type: 'NEXT',
@@ -38,9 +27,9 @@ const Navigation = () => {
         });
         dispatch({ type: "DRAG", eventType: 'drag' });
         const nextIndex = Math.min(currentSlide + 1, refItem.current.children.length - 1);
-        scrollToSlide(nextIndex);
+        scrollToSlide(nextIndex, refItem);
     };
-    
+
     const handlePrev = () => {
         dispatch({
             type: 'PREV',
@@ -49,9 +38,9 @@ const Navigation = () => {
         });
         dispatch({ type: "DRAG", eventType: 'drag' });
         const prevIndex = Math.max(currentSlide - 1, 0);
-        scrollToSlide(prevIndex);
+        scrollToSlide(prevIndex, refItem);
     };
-    
+
     const handleBullet = (index) => {
         if (index < 0 || index >= data.length) return;
         dispatch({
@@ -61,36 +50,40 @@ const Navigation = () => {
             limit: Math.abs(currentSlide - index),
             eventType: 'bullet'
         });
-    
+
         if (refItem.current) {
-            const currentChild = refItem.current.children[index];
-            if (currentChild) {
-                const parentWidth = refItem.current.clientWidth;
-                const childWidth = currentChild.offsetWidth;
-                const childPosition = currentChild.offsetLeft; 
-                const scrollOffset = childPosition - (parentWidth - childWidth) / 2; 
-                refItem.current.scrollTo({
-                    left: scrollOffset,
-                    behavior: 'smooth'
-                });
+            const targetChild = refItem.current.children[index];
+            if (targetChild) {
+                /*                 refItem.current.scrollTo({
+                                    left: getScrollOffset(refItem.current, targetChild),
+                                    behavior: 'smooth'
+                                }); */
+                refItem.current.scrollLeft = getScrollOffset(refItem.current, targetChild);
+
             }
         }
     };
-    
+
     useEffect(() => {
-        setIsDelayedActive(false);
+        if (isDelayedActive) {
+            setIsDelayedActive(false);
+        }
+    
         const timeoutDuration = animationSpeed * 800;
-        const timer = setTimeout(() => {
+            const timer = setTimeout(() => {
             setIsDelayedActive(true);
         }, timeoutDuration);
+    
         return () => clearTimeout(timer);
-    }, [currentSlide, animationSpeed]);
+    }, [currentSlide, animationSpeed, isDelayedActive]);
+    
 
     useEffect(() => {
         const handleWheel = (e) => {
             if (refItem.current) {
                 e.preventDefault();
-                const scrollAmount = e.deltaY > 0 ? (maxWidth / data.length) : -(maxWidth / data.length);
+                const scrollStep = data.length > 0 ? maxWidth / data.length : 0;
+                const scrollAmount = e.deltaY > 0 ? scrollStep : -scrollStep;
                 refItem.current.scrollLeft += scrollAmount;
             }
         };
@@ -105,23 +98,13 @@ const Navigation = () => {
                 navElement.removeEventListener('wheel', handleWheel);
             }
         };
-        
     }, [maxWidth, data.length]);
 
+
     useEffect(() => {
-        if (refItem.current) {
-            const computedStyleUl = window.getComputedStyle(refItem.current);
-            const gap = parseFloat(computedStyleUl.gap);
-            const offsetLesft = parseFloat(computedStyleUl.paddingLeft);
-            const firstLi = refItem.current.children[1];
-            if (firstLi) {
-                const computedStyleLi = window.getComputedStyle(firstLi);
-                const liWidth = parseFloat(computedStyleLi.width);
-                const slidePosition = currentSlide * (liWidth + gap);
-                setMaxWidth((liWidth + gap) * data.length + 10);
-                setLeftStyle(`${slidePosition + offsetLesft}px`);
-            }
-        }
+        const { maxWidth, leftStyle } = calculateStyles(refItem, currentSlide, data.length);
+        setMaxWidth(maxWidth);
+        setLeftStyle(leftStyle);
     }, [currentSlide, data.length]);
 
     return (
@@ -132,6 +115,9 @@ const Navigation = () => {
                     <ul className="slider__nav-bullet" ref={refItem}>
                         {data.map((item, index) => (
                             <li key={index}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`Navigate to slide ${index + 1}`}
                                 style={{ background: `url(${item.thumbnail}) center/cover no-repeat` }}
                                 className={
                                     'slider__nav-bullet-item ' +
@@ -143,8 +129,9 @@ const Navigation = () => {
                         <li className='slider__nav-bullet-item isProgress'
                             style={{
                                 left: leftStyle,
-                                transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`
-                            }} 
+                                transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`,
+
+                            }}
                         />
                     </ul>
                 </div>
