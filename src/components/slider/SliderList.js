@@ -26,7 +26,7 @@ const SliderList = (props) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const animationSpeed = calculateAnimationSpeed(eventType, limit);
+    const animationSpeed = calculateAnimationSpeed(eventType, limit / 2);
 
     const transitionStyle = isDragging || isResizing
         ? "none"
