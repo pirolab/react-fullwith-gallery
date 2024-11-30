@@ -1,6 +1,6 @@
 @use "../../sass/variables" as *;
 @use "../../sass/mediaQueries" as *;
-
+@use '../../sass/animations' as *;
 
 :root {
     --slider-height-mobile: 40svh;
@@ -31,7 +31,7 @@
     margin: 0 auto;
     background: $main_backgroud;
     width: 100%;
-    overflow: hidden;
+    margin-bottom: 5rem;
 
     &__wrapper {
         position: relative;
@@ -47,6 +47,9 @@
         margin: 0;
         padding: 0;
         display: flex;
+        opacity: 0;
+        transition: opacity .5s;
+        animation: fade-in 1s ease-out .5s forwards;
     }
 
 

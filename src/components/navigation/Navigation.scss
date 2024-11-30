@@ -1,9 +1,11 @@
 @use '../../sass/variables' as *;
 @use '../../sass/mediaQueries' as *;
+@use '../../sass/animations' as *;
 
 .slider__nav {
     $thumbHeight: 5.5rem;
     $height: calc($thumbHeight + 3rem);
+    $bRradius: .3rem;
     position: absolute;
     width: 100vw;
     height: $height;
@@ -40,6 +42,8 @@
 
         &-item {
             width: 9rem;
+            opacity: 0;
+            animation: fade-in 1s ease-out 1s forwards;
             height: $thumbHeight;
             flex: 0 0 9rem;
             background: rgb($black, .3);
@@ -48,6 +52,7 @@
             position: relative;
             transition: transform .5s, background .3s;
             z-index: 1;
+            border-radius: $bRradius;
 
             @include isTablet {
                 &:hover:not(.isProgress) {
@@ -84,26 +89,26 @@
                 cursor: auto;
 
                 &::after {
-                    width: 100%;
-                    height: 100%;
-                    transform: translate(-50%, -50%);
-                    background: rgb($slideActive, .2);
-                    outline: .2rem solid rgb($slideActive, .9);
+                    background: rgb($slideActive, .4);
+                    border-radius: $bRradius;
                 }
             }
         }
     }
 
     &-image-count {
-        font-size: 1.4rem;
+        font-size: 1rem;
         color: $white;
         font-weight: 500;
         position: absolute;
-        top: 1rem;
-        right: 1rem;
+        padding: 0.5rem 1rem;
+        top: 0;
+        right: 0;
+        border-bottom-left-radius: .4rem;
+        background: rgb($black, .6);
 
         @include isTablet {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
         }
     }
 

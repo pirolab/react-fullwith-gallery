@@ -7,6 +7,7 @@ import {
     calculateStyles,
     scrollToSlide
 } from '../../helpers/helpers';
+import { ACTIVE_DELAY  } from '../../constants/constants';
 
 import './Navigation.scss';
 
@@ -54,12 +55,7 @@ const Navigation = () => {
         if (refItem.current) {
             const targetChild = refItem.current.children[index];
             if (targetChild) {
-                /*                 refItem.current.scrollTo({
-                                    left: getScrollOffset(refItem.current, targetChild),
-                                    behavior: 'smooth'
-                                }); */
                 refItem.current.scrollLeft = getScrollOffset(refItem.current, targetChild);
-
             }
         }
     };
@@ -69,7 +65,7 @@ const Navigation = () => {
             setIsDelayedActive(false);
         }
     
-        const timeoutDuration = animationSpeed * 800;
+        const timeoutDuration = animationSpeed * ACTIVE_DELAY;
             const timer = setTimeout(() => {
             setIsDelayedActive(true);
         }, timeoutDuration);

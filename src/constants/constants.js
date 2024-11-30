@@ -13,6 +13,8 @@ export const SIZE_CONFIG = {
     minHeightMobile: '30rem'
 }
 
+export const ACTIVE_DELAY = 800;
+
 /**
  * The API endpoint URL for fetching data.
  * 
