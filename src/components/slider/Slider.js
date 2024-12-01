@@ -19,7 +19,7 @@ const Slider = () => {
     const { containerWidth, isResizing } = useResizeObserver(refContainer);
     const [dragDir, setDragDir] = useState('');
     const { dragOffset, isDragging, handleDragStart, handleDragMove, handleDragEnd } =
-        useSliderDrag(containerWidth, currentSlide, data.length, dispatch);
+        useSliderDrag(containerWidth, currentSlide, data.length, dispatch, refSlider);
 
     const [isTouchStart, setIsTouchStart] = useState(false);
 
@@ -63,8 +63,8 @@ const Slider = () => {
                         />
                     )}
                 </div>
+                {data.length > 0 && <Navigation />}
             </div>
-            {data.length > 0 && <Navigation />}
         </>
     );
 };

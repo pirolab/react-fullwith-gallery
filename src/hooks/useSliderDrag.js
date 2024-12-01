@@ -1,16 +1,32 @@
-import { useState, useRef } from "react";
-import { ANIMATION_MULTIPLIER  } from './../constants/constants';
+import { useState, useRef, useEffect } from "react";
+import { ANIMATION_MULTIPLIER, TRASHOLD_DIVIDER } from './../constants/constants';
 import { scrollToActiveSlide } from '../helpers/helpers';
-export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch) => {
+
+export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch, refSlider) => {
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
     const startPos = useRef({ x: 0, y: 0 });
     const lastDragOffset = useRef(0);
     const isDragEndDelay = useRef(false);
-    const trashHold = containerWidth / 6;
-    const slider = document.querySelector('.slider__nav-bullet');
-    const slides = document.querySelectorAll('.slider__nav-bullet-item');
+    const trashHold = containerWidth / TRASHOLD_DIVIDER;
 
+    const refSliderNav = useRef();
+    const refSliderNavItems = useRef([]);
+
+    useEffect(() => {
+        if (refSlider.current) {
+            setTimeout(() => {
+                const sliderNav = refSlider.current.querySelector('.slider__nav-bullet');
+                const sliderNavItems = refSlider.current.querySelectorAll('.slider__nav-bullet-item');
+                if (sliderNav && sliderNavItems.length > 0) {
+                    refSliderNav.current = sliderNav;
+                    refSliderNavItems.current = Array.from(sliderNavItems);
+                } else {
+                    console.error("Elements not found");
+                }
+            }, 100);
+        }
+    }, [refSlider]);
 
 
     const handleDragStart = (e) => {
@@ -31,7 +47,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
 
         const deltaX = clientX - startPos.current.x;
 
-        if (Math.abs(deltaX - lastDragOffset.current) > 0.25) { 
+        if (Math.abs(deltaX - lastDragOffset.current) > 0.25) {
             lastDragOffset.current = deltaX;
             setDragOffset(deltaX);
         }
@@ -41,32 +57,33 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
         if (!isDragging) return;
         let activeSlide = '';
         setIsDragging(false);
-    
+
         if (Math.abs(dragOffset) > trashHold) {
             if (dragOffset < 0 && currentSlide < dataLength - 1) {
-                activeSlide = slides[currentSlide + 1];
+                activeSlide = refSliderNavItems.current[currentSlide + 1];
                 dispatch({ type: "NEXT" });
             } else if (dragOffset > 0 && currentSlide > 0) {
-                activeSlide = slides[currentSlide - 1];
+                activeSlide = refSliderNavItems.current[currentSlide - 1];
                 dispatch({ type: "PREV" });
             }
         }
-    
-        if (slider && activeSlide) {
-            scrollToActiveSlide(slider, activeSlide);
+
+        if (refSliderNav.current && activeSlide) {
+            scrollToActiveSlide(refSliderNav.current, activeSlide);
         }
-    
+
         setDragOffset(0);
         lastDragOffset.current = 0;
         isDragEndDelay.current = true;
-    
+
         setTimeout(() => {
             isDragEndDelay.current = false;
-        }, ANIMATION_MULTIPLIER );
+        }, ANIMATION_MULTIPLIER);
     };
-    
 
     return {
+        sliderElements: refSliderNav.current,
+        slideElements: refSliderNavItems.current,
         dragOffset,
         isDragging,
         handleDragStart,

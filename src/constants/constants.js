@@ -13,6 +13,8 @@ export const SIZE_CONFIG = {
     minHeightMobile: '30rem'
 }
 
+export const TRASHOLD_DIVIDER = 3; // 3 = 33.33%
+
 export const ACTIVE_DELAY = 800;
 
 /**
