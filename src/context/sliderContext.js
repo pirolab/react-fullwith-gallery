@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useReducer, useEffect, useRef } from 'react';
-import { useDataFetch } from '../hooks/useDataFetch';
-import { useCSSVariables } from '../hooks/useCSSVariables';
+import { useDataFetch, useCSSVariables } from '../hooks/';
+import { LAYOUT_SIZE_CONFIG  } from '../constants/constants';
 
 const SliderContext = createContext();
 
-export const useSlider = () => useContext(SliderContext);
+export const useContextSlider = () => useContext(SliderContext);
 
 const sliderReducer = (state, action) => {
     switch (action.type) {
@@ -42,14 +42,13 @@ const sliderReducer = (state, action) => {
     }
 };
 
-export const SliderProvider = ({ children, url, sizeConfig }) => {
+export const SliderProvider = ({ children, url }) => {
     const { data, error, isLoading } = useDataFetch(url);
     const refSlider = useRef();
     
     const initialState = {
         data: [],
         currentSlide: 0,
-        sizeConfig: sizeConfig
     };
 
     const [state, dispatch] = useReducer(sliderReducer, initialState);
@@ -60,7 +59,7 @@ export const SliderProvider = ({ children, url, sizeConfig }) => {
         }
     }, [data]);
     
-    useCSSVariables(refSlider, sizeConfig);
+    useCSSVariables(refSlider, LAYOUT_SIZE_CONFIG);
 
     if (isLoading) {
         return <>
@@ -73,11 +72,9 @@ export const SliderProvider = ({ children, url, sizeConfig }) => {
 
     if (error) {
         return (
-            <>
-                <div className='slider'>
-                    <h2 style={{color:'white', textAlign: 'center'}}>Error: <b>{error.message}</b></h2>
-                </div>
-            </>
+            <div className='slider'>
+                <h2 style={{color:'white', textAlign: 'center'}}>Error: <b>{error.message}</b></h2>
+            </div>
         );
     }
 

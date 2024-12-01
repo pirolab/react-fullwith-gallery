@@ -1,17 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSlider } from '../../context/sliderContext';
+import { useContextSlider } from '../../context/sliderContext';
+import { 
+    useSliderDrag,
+    useResizeObserver,
+    useCSSVariables,
+    useTouchEvents
+} from '../../hooks';
+
 import Navigation from '../navigation/Navigation';
 import SliderList from './SliderList';
-import { useSliderDrag } from '../../hooks/useSliderDrag';
-import { useResizeObserver } from '../../hooks/useResizeObserver';
-import { useCSSVariables } from '../../hooks/useCSSVariables';
-import { useTouchEvents } from '../../hooks/useTouchEvents';
+
+import { LAYOUT_SIZE_CONFIG  } from '../../constants/constants';
 
 import './Slider.scss';
 
 const Slider = () => {
-    const { state, dispatch } = useSlider();
-    const { currentSlide, data, sizeConfig } = state;
+    const { state, dispatch } = useContextSlider();
+    const { currentSlide, data } = state;
 
     const refContainer = useRef();
     const refSlider = useRef();
@@ -28,7 +33,7 @@ const Slider = () => {
         setDragDir(newDragDir);
     }, [dragOffset]);
 
-    useCSSVariables(refSlider, sizeConfig);
+    useCSSVariables(refSlider, LAYOUT_SIZE_CONFIG);
     useTouchEvents(refContainer, handleDragStart, handleDragMove, handleDragEnd, setIsTouchStart);
 
     const attachDragEvents = {

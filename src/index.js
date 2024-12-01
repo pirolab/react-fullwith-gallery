@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { SliderProvider } from './context/sliderContext';
-import { LAYOUT_SIZE_CONFIG, URL } from './constants/constants';
+import { URL } from './constants/constants';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -12,7 +12,7 @@ const url = URL;
 
 root.render(
     <React.StrictMode>
-        <SliderProvider url={url} sizeConfig={LAYOUT_SIZE_CONFIG}>
+        <SliderProvider url={url}>
             <App />
         </SliderProvider>
     </React.StrictMode>

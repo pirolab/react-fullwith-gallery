@@ -50,7 +50,7 @@ import React, { useRef } from 'react';
 import { useSliderDrag } from "./hooks/useSliderDrag";
 import { useResizeObserver } from '../../hooks/useResizeObserver';
 const SliderComponent = () => {
-    const { state, dispatch } = useSlider();
+    const { state, dispatch } = useContextSlider();
     const { currentSlide, data } = state;
     const refContainer = useRef();
     const { containerWidth, isResizing } = useResizeObserver(refContainer);

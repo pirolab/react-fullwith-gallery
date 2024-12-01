@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useSlider } from '../../context/sliderContext';
+import { useContextSlider } from '../../context/sliderContext';
 import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
 import {
     calculateAnimationSpeed,
@@ -12,7 +12,7 @@ import { TIMEOUT_FACTOR  } from '../../constants/constants';
 import './Navigation.scss';
 
 const Navigation = () => {
-    const { state, dispatch } = useSlider();
+    const { state, dispatch } = useContextSlider();
     const { data, currentSlide, eventType, limit } = state;
     const refItem = useRef(null);
     const animationSpeed = calculateAnimationSpeed(eventType, (limit / 2.5));
