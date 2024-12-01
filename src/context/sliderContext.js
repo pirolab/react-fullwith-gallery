@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useReducer, useEffect, useRef } from 'react';
-import { useDataFetch, useCSSVariables } from '../hooks/';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { useDataFetch } from '../hooks/';
 import { LAYOUT_SIZE_CONFIG  } from '../constants/constants';
 
 const SliderContext = createContext();
@@ -44,7 +44,6 @@ const sliderReducer = (state, action) => {
 
 export const SliderProvider = ({ children, url }) => {
     const { data, error, isLoading } = useDataFetch(url);
-    const refSlider = useRef();
     
     const initialState = {
         data: [],
@@ -59,16 +58,19 @@ export const SliderProvider = ({ children, url }) => {
         }
     }, [data]);
     
-    useCSSVariables(refSlider, LAYOUT_SIZE_CONFIG);
-
     if (isLoading) {
         return <>
-            <div className='slider'  ref={refSlider}>
+            <div className='slider'
+                style={{
+                    height: LAYOUT_SIZE_CONFIG.height
+                }}
+            >
                 <span className="slider__loader">
                     <b>loading...</b>
                 </span>
             </div>
-        </>}
+        </>
+    }
 
     if (error) {
         return (

@@ -28,7 +28,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
         }, 100);
     
         return () => clearTimeout(timeout);
-    }, [refSlider.current]);
+    }, [refSlider]);
     
 
     const handleDragStart = (e) => {
