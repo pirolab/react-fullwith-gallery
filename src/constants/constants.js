@@ -1,21 +1,22 @@
 /**
  * CSS animation isDragEndDelay.
  */
-export const ANIMATION_MULTIPLIER  = 600;
+export const DRAG_ANIMATION_DELAY  = 600;
 
+export const RESIZE_FACTOR = 3; // 3 = 33.33%
+
+export const DRAG_THRESHOLD = 10; // 30px threshold
+
+export const TIMEOUT_FACTOR = 800;
 /**
  * Height & min-height of the slideshow
  */
-export const SIZE_CONFIG = {
+export const LAYOUT_SIZE_CONFIG = {
     height: '80vh',
     minHeight: '60rem',
     heightMobile: '90svh',
     minHeightMobile: '30rem'
 }
-
-export const TRASHOLD_DIVIDER = 3; // 3 = 33.33%
-
-export const ACTIVE_DELAY = 800;
 
 /**
  * The API endpoint URL for fetching data.

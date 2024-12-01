@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { ANIMATION_MULTIPLIER, TRASHOLD_DIVIDER } from './../constants/constants';
+import { DRAG_ANIMATION_DELAY, RESIZE_FACTOR, DRAG_THRESHOLD } from './../constants/constants';
 import { scrollToActiveSlide } from '../helpers/helpers';
 
 export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch, refSlider) => {
@@ -8,7 +8,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
     const startPos = useRef({ x: 0, y: 0 });
     const lastDragOffset = useRef(0);
     const isDragEndDelay = useRef(false);
-    const trashHold = containerWidth / TRASHOLD_DIVIDER;
+    const trashHold = containerWidth / RESIZE_FACTOR;
 
     const refSliderNav = useRef();
     const refSliderNavItems = useRef([]);
@@ -49,10 +49,10 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
 
         const deltaX = clientX - startPos.current.x;
 
-        if (Math.abs(deltaX - lastDragOffset.current) > 0.25) {
+        if (Math.abs(deltaX - lastDragOffset.current) > DRAG_THRESHOLD) {
             lastDragOffset.current = deltaX;
             setDragOffset((prevOffset) => {
-                if (Math.abs(prevOffset - deltaX) > 0.25) {
+                if (Math.abs(prevOffset - deltaX) > DRAG_THRESHOLD) {
                     return deltaX;
                 }
                 return prevOffset;
@@ -86,7 +86,7 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
 
         setTimeout(() => {
             isDragEndDelay.current = false;
-        }, ANIMATION_MULTIPLIER);
+        }, DRAG_ANIMATION_DELAY);
     };
 
     return {

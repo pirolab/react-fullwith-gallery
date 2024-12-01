@@ -7,7 +7,7 @@ import {
     calculateStyles,
     scrollToSlide
 } from '../../helpers/helpers';
-import { ACTIVE_DELAY  } from '../../constants/constants';
+import { TIMEOUT_FACTOR  } from '../../constants/constants';
 
 import './Navigation.scss';
 
@@ -65,7 +65,7 @@ const Navigation = () => {
             setIsDelayedActive(false);
         }
     
-        const timeoutDuration = animationSpeed * ACTIVE_DELAY;
+        const timeoutDuration = animationSpeed * TIMEOUT_FACTOR;
             const timer = setTimeout(() => {
             setIsDelayedActive(true);
         }, timeoutDuration);
