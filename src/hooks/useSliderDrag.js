@@ -14,20 +14,22 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
     const refSliderNavItems = useRef([]);
 
     useEffect(() => {
-        if (refSlider.current) {
-            setTimeout(() => {
-                const sliderNav = refSlider.current.querySelector('.slider__nav-bullet');
-                const sliderNavItems = refSlider.current.querySelectorAll('.slider__nav-bullet-item');
-                if (sliderNav && sliderNavItems.length > 0) {
-                    refSliderNav.current = sliderNav;
-                    refSliderNavItems.current = Array.from(sliderNavItems);
-                } else {
-                    console.error("Elements not found");
-                }
-            }, 100);
-        }
-    }, [refSlider]);
-
+        if (!refSlider.current) return;
+    
+        const timeout = setTimeout(() => {
+            const sliderNav = refSlider.current.querySelector('.slider__nav-bullet');
+            const sliderNavItems = refSlider.current.querySelectorAll('.slider__nav-bullet-item');
+            if (sliderNav && sliderNavItems.length > 0) {
+                refSliderNav.current = sliderNav;
+                refSliderNavItems.current = Array.from(sliderNavItems);
+            } else {
+                console.error("Elements not found");
+            }
+        }, 100);
+    
+        return () => clearTimeout(timeout);
+    }, [refSlider.current]);
+    
 
     const handleDragStart = (e) => {
         if (isDragEndDelay.current) return;
@@ -49,9 +51,15 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
 
         if (Math.abs(deltaX - lastDragOffset.current) > 0.25) {
             lastDragOffset.current = deltaX;
-            setDragOffset(deltaX);
+            setDragOffset((prevOffset) => {
+                if (Math.abs(prevOffset - deltaX) > 0.25) {
+                    return deltaX;
+                }
+                return prevOffset;
+            });
         }
     };
+    
 
     const handleDragEnd = () => {
         if (!isDragging) return;
