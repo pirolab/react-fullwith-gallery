@@ -1,7 +1,7 @@
 import React from "react";
 import "./SliderItem.scss";
 import { getBgPositionX, getTransitionTime } from '../../helpers/helpers';
-import { useContextSlider } from '../../context/sliderContext';
+import { useSliderContext } from '../../context/sliderContext';
 const SliderItem = (props) => {
     
     const {
@@ -12,7 +12,7 @@ const SliderItem = (props) => {
         isDragging
     } = props;
 
-    const { state } = useContextSlider();
+    const { state } = useSliderContext();
     const { currentSlide, data } = state;
 
     const { title, subtitle, leadImage, hash } = data[index] || {};

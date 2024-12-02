@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useContextSlider } from '../../context/sliderContext';
+import { useSliderContext } from '../../context/sliderContext';
 import { 
     useSliderDrag,
     useResizeObserver,
@@ -15,7 +15,7 @@ import { LAYOUT_SIZE_CONFIG  } from '../../constants/constants';
 import './Slider.scss';
 
 const Slider = () => {
-    const { state, dispatch } = useContextSlider();
+    const { state, dispatch } = useSliderContext();
     const { currentSlide, data } = state;
 
     const refContainer = useRef();

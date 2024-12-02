@@ -1,7 +1,7 @@
 // components/SliderList.js
 import React, { useEffect, useState } from 'react';
 import SliderItem from "../sliderItem/SliderItem";
-import { useContextSlider } from '../../context/sliderContext';
+import { useSliderContext } from '../../context/sliderContext';
 import { calculateAnimationSpeed } from '../../helpers/helpers';
 
 const SliderList = (props) => {
@@ -13,7 +13,7 @@ const SliderList = (props) => {
         dragDir
     } = props;
 
-    const { state } = useContextSlider();
+    const { state } = useSliderContext();
     const { eventType, limit, currentSlide, data } = state;
     const slidePosition = -(containerWidth * currentSlide) + dragOffset;
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);

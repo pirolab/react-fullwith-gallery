@@ -4,7 +4,7 @@ import { LAYOUT_SIZE_CONFIG  } from '../constants/constants';
 
 const SliderContext = createContext();
 
-export const useContextSlider = () => useContext(SliderContext);
+export const useSliderContext = () => useContext(SliderContext);
 
 const sliderReducer = (state, action) => {
     switch (action.type) {
