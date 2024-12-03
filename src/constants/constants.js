@@ -5,7 +5,7 @@ export const DRAG_ANIMATION_DELAY  = 600;
 
 export const RESIZE_FACTOR = 3; // 3 = 33.33%
 
-export const DRAG_THRESHOLD = 10; // 30px threshold
+export const DRAG_THRESHOLD = 10; // 10px threshold
 
 export const TIMEOUT_FACTOR = 800;
 /**
