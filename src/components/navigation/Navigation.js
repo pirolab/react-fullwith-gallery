@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 import { useSliderContext } from '../../context/sliderContext';
 import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
 import {
@@ -45,11 +47,11 @@ const Navigation = () => {
     const handleBullet = (index) => {
         if (index < 0 || index >= data.length) return;
         dispatch({
-            type: 'BULLET',
+            type: 'THUMB',
             index,
             dataLength: data.length,
             limit: Math.abs(currentSlide - index),
-            eventType: 'bullet'
+            eventType: 'thumb'
         });
         setIsDelayedActive(false); 
 
@@ -109,21 +111,28 @@ const Navigation = () => {
             <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
             {data && (
                 <div className="slider__nav">
-                    <ul className="slider__nav-bullet" ref={refItem}>
+                    <ul className="slider__nav-thumbs" ref={refItem}>
                         {data.map((item, index) => (
                             <li key={index}
                                 tabIndex={0}
                                 role="button"
                                 aria-label={`Navigate to slide ${index + 1}`}
-                                style={{ backgroundImage: `url(${item.thumbnail})` }}
                                 className={
-                                    'slider__nav-bullet-item ' +
+                                    'slider__nav-thumbs-item ' +
                                     (isDelayedActive && index === currentSlide ? 'isActive' : '')
                                 }
                                 onClick={() => handleBullet(index)}
-                            />
+                            >
+                                <LazyLoadImage 
+                                    src={item.leadImage} 
+                                    alt={item.title}
+                                    width={90}
+                                    height={60}
+                                    className="slider__nav-thumbs-item-image"
+                                />
+                            </li>
                         ))}
-                        <li className='slider__nav-bullet-item isProgress'
+                        <li className='slider__nav-thumbs-item isProgress'
                             style={{
                                 left: leftStyle,
                                 transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`,

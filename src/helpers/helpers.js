@@ -1,5 +1,5 @@
 export const calculateAnimationSpeed = (eventType, limit) => {
-    return eventType === 'bullet'
+    return eventType === 'thumb'
         ? 0.6 + (Number(limit) / 10) * 4
         : 1;
 };

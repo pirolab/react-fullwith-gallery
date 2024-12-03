@@ -17,8 +17,8 @@ export const useSliderDrag = (containerWidth, currentSlide, dataLength, dispatch
         if (!refSlider.current) return;
     
         const timeout = setTimeout(() => {
-            const sliderNav = refSlider.current.querySelector('.slider__nav-bullet');
-            const sliderNavItems = refSlider.current.querySelectorAll('.slider__nav-bullet-item');
+            const sliderNav = refSlider.current.querySelector('.slider__nav-thumbs');
+            const sliderNavItems = refSlider.current.querySelectorAll('.slider__nav-thumbs-item');
             if (sliderNav && sliderNavItems.length > 0) {
                 refSliderNav.current = sliderNav;
                 refSliderNavItems.current = Array.from(sliderNavItems);

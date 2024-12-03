@@ -1,4 +1,6 @@
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 import "./SliderItem.scss";
 import { getBgPositionX, getTransitionTime } from '../../helpers/helpers';
 import { useSliderContext } from '../../context/sliderContext';
@@ -31,14 +33,20 @@ const SliderItem = (props) => {
     return (
         <li className={itemClass}>
             <div
-                className="slider__item-image"
+                className="slider__item-leadmedia"
                 style={{
-                    backgroundImage: `url(${leadImage})`,
                     transform: `translateX(${getBgPositionX(index, currentSlide, dragOffset, restrictToBounds)})`,
                     transition: transitionStyle
-
                 }}
-            />
+            >
+                <LazyLoadImage 
+                    src={leadImage} 
+                    alt={title}
+                    width={1600}
+                    height={1200}
+                    className="slider__item-leadmedia-image"
+                />
+            </div>
             <div className="slider__item-content">
                 <div className="slider__item-content-wrapper">
                     <h2 className="slider__item-content-title">{title}</h2>
