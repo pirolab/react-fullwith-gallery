@@ -49,6 +49,7 @@ const SliderList = (props) => {
                     dataLength={data.length}
                     dragDir={dragDir}
                     isDragging={isDragging}
+                    isResizing={isResizing}
                 />
             ))}
         </ul>

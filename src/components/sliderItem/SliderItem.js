@@ -9,7 +9,8 @@ const SliderItem = (props) => {
         dragDir,
         dragOffset,
         dataLength,
-        isDragging
+        isDragging,
+        isResizing
     } = props;
 
     const { state } = useSliderContext();
@@ -22,7 +23,9 @@ const SliderItem = (props) => {
     const isAtRightLimit = dragDir === 'RTL' && currentSlide >= (dataLength - 1);
     const restrictToBounds = isAtLeftLimit || isAtRightLimit;
     const itemClass = `slider__item ${index === currentSlide ? 'isVisible' : ''}`;
-
+    const transitionStyle = isDragging || isResizing
+        ? "none"
+        : getTransitionTime(index, currentSlide, dragOffset, isDragging);
     if (!data[index]) return null;
 
     return (
@@ -32,7 +35,7 @@ const SliderItem = (props) => {
                 style={{
                     backgroundImage: `url(${leadImage})`,
                     transform: `translateX(${getBgPositionX(index, currentSlide, dragOffset, restrictToBounds)})`,
-                    transition: getTransitionTime(index, currentSlide, dragOffset, isDragging)
+                    transition: transitionStyle
 
                 }}
             />

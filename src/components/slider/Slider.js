@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSliderContext } from '../../context/sliderContext';
-import { 
+import {
     useSliderDrag,
     useResizeObserver,
     useCSSVariables,
@@ -10,7 +10,7 @@ import {
 import Navigation from '../navigation/Navigation';
 import SliderList from './SliderList';
 
-import { LAYOUT_SIZE_CONFIG  } from '../../constants/constants';
+import { LAYOUT_SIZE_CONFIG } from '../../constants/constants';
 
 import './Slider.scss';
 
@@ -58,17 +58,15 @@ const Slider = () => {
                         touchAction: isTouchStart ? 'none' : 'pan-y',
                     }}
                 >
-                    {data.length > 0 && (
-                        <SliderList
-                            dragOffset={dragOffset}
-                            containerWidth={containerWidth}
-                            isDragging={isDragging}
-                            isResizing={isResizing}
-                            dragDir={dragDir}
-                        />
-                    )}
+                    <SliderList
+                        dragOffset={dragOffset}
+                        containerWidth={containerWidth}
+                        isDragging={isDragging}
+                        isResizing={isResizing}
+                        dragDir={dragDir}
+                    />
                 </div>
-                {data.length > 0 && <Navigation />}
+                <Navigation />
             </div>
         </>
     );

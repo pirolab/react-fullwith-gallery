@@ -16,7 +16,7 @@ const Navigation = () => {
     const { data, currentSlide, eventType, limit } = state;
     const refItem = useRef(null);
     const animationSpeed = calculateAnimationSpeed(eventType, (limit / 2.5));
-    const [isDelayedActive, setIsDelayedActive] = useState(false);
+    const [isDelayedActive, setIsDelayedActive] = useState(true);
     const [leftStyle, setLeftStyle] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0);
 
@@ -51,6 +51,7 @@ const Navigation = () => {
             limit: Math.abs(currentSlide - index),
             eventType: 'bullet'
         });
+        setIsDelayedActive(false); 
 
         if (refItem.current) {
             const targetChild = refItem.current.children[index];
@@ -61,19 +62,14 @@ const Navigation = () => {
     };
 
     useEffect(() => {
-        if (isDelayedActive) {
-            setIsDelayedActive(false);
-        }
-    
         const timeoutDuration = animationSpeed * TIMEOUT_FACTOR;
-            const timer = setTimeout(() => {
-            setIsDelayedActive(true);
+        const timer = setTimeout(() => {
+            setIsDelayedActive(true); 
         }, timeoutDuration);
     
         return () => clearTimeout(timer);
-    }, [currentSlide, animationSpeed, isDelayedActive]);
+    }, [currentSlide, animationSpeed]);
     
-
     useEffect(() => {
         const handleWheel = (e) => {
             if (refItem.current) {
@@ -114,7 +110,7 @@ const Navigation = () => {
                                 tabIndex={0}
                                 role="button"
                                 aria-label={`Navigate to slide ${index + 1}`}
-                                style={{ background: `url(${item.thumbnail}) center/cover no-repeat` }}
+                                style={{ backgroundImage: `url(${item.thumbnail})` }}
                                 className={
                                     'slider__nav-bullet-item ' +
                                     (isDelayedActive && index === currentSlide ? 'isActive' : '')
