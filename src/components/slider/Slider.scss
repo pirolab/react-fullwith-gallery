@@ -59,7 +59,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: $loader;
-        font-size: 4rem;
         opacity: 0.8;
         display: flex;
         display: flex;
@@ -67,14 +66,18 @@
         justify-content: center;
         gap: 1rem;
         width: 100%;
-
+        font-size: 3rem;
+        
+        @include isTablet {
+            font-size: 4rem;
+        }
+        
         &:before {
             content: "<";
             animation: pulse 0.8s alternate infinite ease-in-out;
         }
 
         & b {
-            font-size: 4rem;
             animation: pulse 0.8s 1.6s alternate infinite ease-in-out;
             transform: none !important;
         }

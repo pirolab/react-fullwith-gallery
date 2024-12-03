@@ -1,4 +1,4 @@
-const loremIpsumContent = [
+const homeContent = [
     {
         "title": "React Fullwidth Image Gallery",
         "text": "A **fullwidth image gallery** component built using **React** and **CSS animations**. It includes hooks like <code><b>useDataFetch(url)</b></code> to fetch data asynchronously. The gallery is designed to work with both **touch** and **mouse drag interactions**. The gallery also supports resizing through the <code><b>useResizeObserver</b></code> hook, which dynamically adjusts the layout as the window size changes. This ensures the gallery maintains its responsiveness across different screen sizes."
@@ -18,4 +18,4 @@ const loremIpsumContent = [
     }
 ];
 
-export default loremIpsumContent;
+export default homeContent;

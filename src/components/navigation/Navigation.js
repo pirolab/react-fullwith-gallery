@@ -73,10 +73,15 @@ const Navigation = () => {
     useEffect(() => {
         const handleWheel = (e) => {
             if (refItem.current) {
+                const scrollableWidth = refItem.current.scrollWidth - refItem.current.clientWidth;
+                
+                if (scrollableWidth <= 0) return;
                 e.preventDefault();
                 const scrollStep = data.length > 0 ? maxWidth / data.length : 0;
                 const scrollAmount = e.deltaY > 0 ? scrollStep : -scrollStep;
-                refItem.current.scrollLeft += scrollAmount;
+                const newScrollLeft = refItem.current.scrollLeft + scrollAmount;
+
+                refItem.current.scrollLeft = Math.max(0, Math.min(newScrollLeft, scrollableWidth));
             }
         };
 
