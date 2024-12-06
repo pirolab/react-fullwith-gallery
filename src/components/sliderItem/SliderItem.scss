@@ -24,18 +24,18 @@ $animationDelay: 0.4s;
     flex: 1;
     opacity: .6;
     transform: scale(1);
-    filter: grayscale(100%);  
+    filter: grayscale(100%);
     transition: opacity $animationTime, filter $animationTime, transform $animationTime;
     transition-delay: $animationDelay;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+
     &.isVisible {
         opacity: 1;
         filter: grayscale(0);
         z-index: 2;
-    
+
         #{$this}-content {
             opacity: 1;
         }
@@ -46,7 +46,7 @@ $animationDelay: 0.4s;
         width: 100%;
         height: 100%;
         overflow: hidden;
-    
+
         &-image {
             width: 100%;
             height: 100%;
@@ -97,6 +97,7 @@ $animationDelay: 0.4s;
             width: auto;
             text-align: left;
             color: $white;
+
             @include isTablet {
                 font-size: 2.6rem;
             }
@@ -111,6 +112,7 @@ $animationDelay: 0.4s;
             width: auto;
             left: 0;
             color: $white;
+
             @include isTablet {
                 font-size: 2rem;
             }
@@ -147,5 +149,3 @@ $animationDelay: 0.4s;
         }
     }
 }
-
-

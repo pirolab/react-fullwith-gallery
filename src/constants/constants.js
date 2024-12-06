@@ -1,7 +1,7 @@
 /**
  * CSS animation isDragEndDelay.
  */
-export const DRAG_ANIMATION_DELAY  = 600;
+export const DRAG_ANIMATION_DELAY = 600;
 
 export const RESIZE_FACTOR = 3; // 3 = 33.33%
 

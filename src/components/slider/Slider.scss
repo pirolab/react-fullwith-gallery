@@ -17,6 +17,7 @@
 }
 
 @include isTablet {
+
     .slider,
     .slider__item,
     .slider__item-image {
@@ -67,7 +68,7 @@
         gap: 1rem;
         width: 100%;
         font-size: 3rem;
-        
+
         @include isTablet {
             font-size: 4rem;
         }

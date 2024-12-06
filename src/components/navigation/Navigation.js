@@ -9,7 +9,7 @@ import {
     calculateStyles,
     scrollToSlide
 } from '../../helpers/helpers';
-import { TIMEOUT_FACTOR  } from '../../constants/constants';
+import { TIMEOUT_FACTOR } from '../../constants/constants';
 
 import './Navigation.scss';
 
@@ -21,7 +21,7 @@ const Navigation = () => {
     const [isDelayedActive, setIsDelayedActive] = useState(true);
     const [leftStyle, setLeftStyle] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0);
-    const placeholder = 'https://www.pirolab.it/react-fullwidth-gallery/images/placeholder.png'
+
     const handleNext = () => {
         dispatch({
             type: 'NEXT',
@@ -53,7 +53,7 @@ const Navigation = () => {
             limit: Math.abs(currentSlide - index),
             eventType: 'thumb'
         });
-        setIsDelayedActive(false); 
+        setIsDelayedActive(false);
 
         if (refItem.current) {
             const targetChild = refItem.current.children[index];
@@ -66,17 +66,17 @@ const Navigation = () => {
     useEffect(() => {
         const timeoutDuration = animationSpeed * TIMEOUT_FACTOR;
         const timer = setTimeout(() => {
-            setIsDelayedActive(true); 
+            setIsDelayedActive(true);
         }, timeoutDuration);
-    
+
         return () => clearTimeout(timer);
     }, [currentSlide, animationSpeed]);
-    
+
     useEffect(() => {
         const handleWheel = (e) => {
             if (refItem.current) {
                 const scrollableWidth = refItem.current.scrollWidth - refItem.current.clientWidth;
-                
+
                 if (scrollableWidth <= 0) return;
                 e.preventDefault();
                 const scrollStep = data.length > 0 ? maxWidth / data.length : 0;
@@ -123,8 +123,8 @@ const Navigation = () => {
                                 }
                                 onClick={() => handleBullet(index)}
                             >
-                                <LazyLoadImage 
-                                    src={item.leadImage} 
+                                <LazyLoadImage
+                                    src={item.leadImage}
                                     alt={item.title}
                                     width={90}
                                     height={60}

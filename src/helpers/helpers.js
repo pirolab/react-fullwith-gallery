@@ -52,7 +52,7 @@ export const scrollToSlide = (index, refItem) => {
             const containerWidth = refItem.current.clientWidth;
             const childWidth = targetChild.offsetWidth;
             const scrollOffset = targetChild.offsetLeft - (containerWidth / 2) + (childWidth / 2);
-            
+
             return refItem.current.scrollLeft = scrollOffset;
 
         }

@@ -5,7 +5,7 @@ import "./SliderItem.scss";
 import { getBgPositionX, getTransitionTime } from '../../helpers/helpers';
 import { useSliderContext } from '../../context/sliderContext';
 const SliderItem = (props) => {
-    
+
     const {
         index,
         dragDir,
@@ -19,7 +19,7 @@ const SliderItem = (props) => {
     const { currentSlide, data } = state;
 
     const { title, subtitle, leadImage, hash } = data[index] || {};
-    
+
     const tagsArray = hash.split(' ').map((tag) => tag.replace('#', ''));
     const isAtLeftLimit = dragDir === 'LTR' && currentSlide === 0;
     const isAtRightLimit = dragDir === 'RTL' && currentSlide >= (dataLength - 1);
@@ -39,8 +39,8 @@ const SliderItem = (props) => {
                     transition: transitionStyle
                 }}
             >
-                <LazyLoadImage 
-                    src={leadImage} 
+                <LazyLoadImage
+                    src={leadImage}
                     alt={title}
                     width={1600}
                     height={1200}

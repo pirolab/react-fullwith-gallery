@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { useDataFetch } from '../hooks/';
-import { LAYOUT_SIZE_CONFIG  } from '../constants/constants';
+import { LAYOUT_SIZE_CONFIG } from '../constants/constants';
 
 const SliderContext = createContext();
 
@@ -12,24 +12,24 @@ const sliderReducer = (state, action) => {
             return {
                 ...state,
                 currentSlide: Math.min(state.currentSlide + 1, state.data.length - 1),
-                limit:  1
+                limit: 1
             };
         case 'PREV':
             return {
                 ...state,
                 currentSlide: Math.max(state.currentSlide - 1, 0),
-                limit:  1
+                limit: 1
             };
         case 'DRAG':
             return {
                 ...state,
                 eventType: 'drag'
-            };            
+            };
         case 'THUMB':
             return {
                 ...state,
                 currentSlide: action.index % state.data.length,
-                limit:  Math.abs(state.currentSlide - action.index),
+                limit: Math.abs(state.currentSlide - action.index),
                 eventType: 'thumb'
             };
         case 'SET_DATA':
@@ -44,7 +44,7 @@ const sliderReducer = (state, action) => {
 
 export const SliderProvider = ({ children, url }) => {
     const { data, error, isLoading } = useDataFetch(url);
-    
+
     const initialState = {
         data: [],
         currentSlide: 0,
@@ -57,7 +57,7 @@ export const SliderProvider = ({ children, url }) => {
             dispatch({ type: 'SET_DATA', payload: data });
         }
     }, [data]);
-    
+
     if (isLoading) {
         return <>
             <div className='slider'
@@ -75,7 +75,7 @@ export const SliderProvider = ({ children, url }) => {
     if (error) {
         return (
             <div className='slider'>
-                <h2 style={{color:'white', textAlign: 'center'}}>Error: <b>{error.message}</b></h2>
+                <h2 style={{ color: 'white', textAlign: 'center' }}>Error: <b>{error.message}</b></h2>
             </div>
         );
     }
