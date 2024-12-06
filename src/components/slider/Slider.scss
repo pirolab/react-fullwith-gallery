@@ -71,7 +71,11 @@
         @include isTablet {
             font-size: 4rem;
         }
-        
+
+        &--small {
+            font-size: 1rem;
+        }
+
         &:before {
             content: "<";
             animation: pulse 0.8s alternate infinite ease-in-out;

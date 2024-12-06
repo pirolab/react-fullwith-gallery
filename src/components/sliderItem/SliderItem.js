@@ -45,6 +45,7 @@ const SliderItem = (props) => {
                     width={1600}
                     height={1200}
                     className="slider__item-leadmedia-image"
+                    placeholder={<span className="slider__loader"><b>loading...</b></span>}
                 />
             </div>
             <div className="slider__item-content">

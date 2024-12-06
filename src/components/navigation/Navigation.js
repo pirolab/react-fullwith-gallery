@@ -21,7 +21,7 @@ const Navigation = () => {
     const [isDelayedActive, setIsDelayedActive] = useState(true);
     const [leftStyle, setLeftStyle] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0);
-
+    const placeholder = 'https://www.pirolab.it/react-fullwidth-gallery/images/placeholder.png'
     const handleNext = () => {
         dispatch({
             type: 'NEXT',
@@ -128,6 +128,7 @@ const Navigation = () => {
                                     alt={item.title}
                                     width={90}
                                     height={60}
+                                    placeholder={<span className="slider__loader slider__loader--small"><b>loading...</b></span>}
                                     className="slider__nav-thumbs-item-image"
                                 />
                             </li>
