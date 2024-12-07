@@ -5,6 +5,7 @@
 .slider__nav {
     $thumbHeight: 5.5rem;
     $height: calc($thumbHeight + 3rem);
+    $animationTime: .4s;
     $bRradius: .3rem;
     position: absolute;
     width: 100vw;
@@ -49,12 +50,9 @@
             flex: 0 0 9rem;
             z-index: 1;
             background-color: $black;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
             box-shadow: 0 0 0.4rem -0.1rem rgb($black, 0.8), 0 1.3rem 1rem -1rem rgb($black, 0.5);
             cursor: pointer;
-            transition: transform .3s, background .3s;
+            transition: transform $animationTime;
             border-radius: $bRradius;
             overflow: hidden;
 
@@ -65,29 +63,18 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                transition: width .3s;
+                transition: scale $animationTime;
             }
 
             @include isTablet {
                 &:hover:not(.isProgress) {
-                    transform: scale(1.2);
+                    transform: scale(1.2) translateY(-.4rem);
                     z-index: 7;
 
                     img {
-                        width: 140%;
+                        scale: 1.3;
                     }
                 }
-            }
-
-            &::after {
-                content: '';
-                position: absolute;
-                top: 51%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 100%;
-                height: 100%;
-                transition: all .4s;
             }
 
             &.isActive {
@@ -98,7 +85,7 @@
             &.isProgress {
                 position: absolute;
                 top: 50%;
-                transform: translateY(-50%);
+                transform: translateY(-50%) scaleY(1.02);
                 left: 0;
                 z-index: 8;
                 box-shadow: none;
@@ -106,6 +93,11 @@
                 cursor: auto;
 
                 &::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    transition: all .4s;
                     background: rgb($slideActive, .4);
                     border-radius: $bRradius;
                 }
@@ -147,7 +139,7 @@
         align-items: center;
         cursor: pointer;
         color: $white;
-        transition: background .6s, color .6s;
+        transition: background $animationTime, color $animationTime;
 
         &.isDisabled {
             opacity: .5;

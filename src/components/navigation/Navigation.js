@@ -7,7 +7,8 @@ import {
     calculateAnimationSpeed,
     getScrollOffset,
     calculateStyles,
-    scrollToSlide
+    scrollToSlide,
+    useResizeScroll
 } from '../../helpers/helpers';
 import { TIMEOUT_FACTOR } from '../../constants/constants';
 
@@ -32,7 +33,7 @@ const Navigation = () => {
         const nextIndex = Math.min(currentSlide + 1, refItem.current.children.length - 1);
         scrollToSlide(nextIndex, refItem);
     };
-
+    useResizeScroll(refItem, currentSlide);
     const handlePrev = () => {
         dispatch({
             type: 'PREV',
@@ -62,6 +63,12 @@ const Navigation = () => {
             }
         }
     };
+
+    useEffect(() => {
+        const cleanupListner = scrollToSlide(currentSlide, refItem);
+    
+        return cleanupListner;
+    }, [currentSlide, refItem]);
 
     useEffect(() => {
         const timeoutDuration = animationSpeed * TIMEOUT_FACTOR;
@@ -98,7 +105,6 @@ const Navigation = () => {
             }
         };
     }, [maxWidth, data.length]);
-
 
     useEffect(() => {
         const { maxWidth, leftStyle } = calculateStyles(refItem, currentSlide, data.length);

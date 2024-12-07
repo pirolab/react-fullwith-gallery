@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const calculateAnimationSpeed = (eventType, limit) => {
     return eventType === 'thumb'
         ? 0.6 + (Number(limit) / 10) * 4
@@ -53,11 +55,26 @@ export const scrollToSlide = (index, refItem) => {
             const childWidth = targetChild.offsetWidth;
             const scrollOffset = targetChild.offsetLeft - (containerWidth / 2) + (childWidth / 2);
 
-            return refItem.current.scrollLeft = scrollOffset;
-
+            refItem.current.scrollLeft = scrollOffset;
         }
     }
 };
+
+export const useResizeScroll = (refItem, index) => {
+    useEffect(() => {
+        const handleResize = () => {
+            if (refItem.current) {
+                scrollToSlide(index, refItem);
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [refItem, index]);
+};
+
 
 export const scrollToActiveSlide = (slider, activeSlide) => {
     if (!slider || !activeSlide) return;
