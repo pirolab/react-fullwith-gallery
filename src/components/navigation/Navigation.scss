@@ -62,8 +62,9 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
+                filter: grayscale(100%);
                 transform: translate(-50%, -50%);
-                transition: scale $animationTime;
+                transition: width $animationTime, filter  $animationTime;
             }
 
             @include isTablet {
@@ -72,7 +73,8 @@
                     z-index: 7;
 
                     img {
-                        scale: 1.3;
+                        width: 150%;
+                        filter: grayscale(0);
                     }
                 }
             }
@@ -80,6 +82,9 @@
             &.isActive {
                 pointer-events: none;
                 z-index: 5;
+                img {
+                    filter: grayscale(0);
+                }
             }
 
             &.isProgress {
