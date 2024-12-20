@@ -30,6 +30,16 @@ $animationDelay: 0.4s;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 3;
+        background: linear-gradient(22.5deg, rgb($black, .9) 25%, rgb($black, 0) 66%);
+    }
 
     &.isVisible {
         opacity: 1;
@@ -63,13 +73,13 @@ $animationDelay: 0.4s;
         left: 0;
         z-index: 4;
         padding-bottom: 3rem;
-        background: rgba(0, 0, 0, 0.5);
+        //background: rgba(0, 0, 0, 0.5);
         transition: opacity .6s;
         transition-delay: .6s;
         opacity: 0;
 
         @include isTablet {
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%);
+            //background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%);
             bottom: 0;
             padding-bottom: 3rem;
             width: 60%;

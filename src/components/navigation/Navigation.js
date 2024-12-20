@@ -114,7 +114,7 @@ const Navigation = () => {
 
     return (
         <>
-            <span className="slider__nav-image-count">{currentSlide + 1} of {data.length}</span>
+            <span className="slider__nav-image-count">{currentSlide + 1}</span>
             {data && (
                 <div className="slider__nav">
                     <ul className="slider__nav-thumbs" ref={refItem}>
@@ -152,12 +152,14 @@ const Navigation = () => {
             <button
                 className={`slider__nav-prev ${state.currentSlide === 0 ? 'isDisabled' : ''}`}
                 onClick={handlePrev}
+                disabled={state.currentSlide === 0 ? true : false}
             >
                 <TiArrowLeft />
             </button>
             <button
                 className={`slider__nav-next ${state.currentSlide === state.data.length - 1 ? 'isDisabled' : ''}`}
                 onClick={handleNext}
+                disabled={state.currentSlide === state.data.length - 1 ? true : false}
             >
                 <TiArrowRight />
             </button>
