@@ -13,7 +13,7 @@ $hash-top: 2rem;
 $default-opacity: 0;
 $default-z-index: 1;
 $animationTime: 0.8s;
-$animationDelay: 0.4s;
+$animationDelay: 0;
 
 .slider__item {
     $this: &;
@@ -26,7 +26,6 @@ $animationDelay: 0.4s;
     transform: scale(1);
     filter: grayscale(100%);
     transition: opacity $animationTime, filter $animationTime, transform $animationTime;
-    transition-delay: $animationDelay;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -38,7 +37,9 @@ $animationDelay: 0.4s;
         bottom: 0;
         left: 0;
         z-index: 3;
-        background: linear-gradient(22.5deg, rgb($black, .9) 25%, rgb($black, 0) 66%);
+        background: linear-gradient(360deg, rgb($black, .8) 0, rgb($black, .4) 30%, rgb($black, 0) 100%);
+        opacity: 0;
+        transition: opacity $animationTime;
     }
 
     &.isVisible {
@@ -46,6 +47,7 @@ $animationDelay: 0.4s;
         filter: grayscale(0);
         z-index: 2;
 
+        &::after,
         #{$this}-content {
             opacity: 1;
         }
@@ -73,13 +75,11 @@ $animationDelay: 0.4s;
         left: 0;
         z-index: 4;
         padding-bottom: 3rem;
-        //background: rgba(0, 0, 0, 0.5);
         transition: opacity .6s;
         transition-delay: .6s;
         opacity: 0;
 
         @include isTablet {
-            //background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%);
             bottom: 0;
             padding-bottom: 3rem;
             width: 60%;
@@ -102,14 +102,14 @@ $animationDelay: 0.4s;
             position: relative;
             padding: $subtitle-padding;
             margin: 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 500;
             width: auto;
             text-align: left;
             color: $white;
 
             @include isTablet {
-                font-size: 2.6rem;
+                font-size: 4rem;
             }
         }
 
@@ -117,7 +117,7 @@ $animationDelay: 0.4s;
             position: relative;
             padding: $subtitle-padding;
             margin: 0;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 500;
             width: auto;
             left: 0;
@@ -125,6 +125,21 @@ $animationDelay: 0.4s;
 
             @include isTablet {
                 font-size: 2rem;
+            }
+        }
+
+        &-description {
+            position: relative;
+            padding: $subtitle-padding;
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 400;
+            width: auto;
+            left: 0;
+            color: $white;
+
+            @include isTablet {
+                font-size: 1.6rem;
             }
         }
 

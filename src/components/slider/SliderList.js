@@ -50,6 +50,7 @@ const SliderList = (props) => {
                     dragDir={dragDir}
                     isDragging={isDragging}
                     isResizing={isResizing}
+                    animationSpeed={animationSpeed}
                 />
             ))}
         </ul>
