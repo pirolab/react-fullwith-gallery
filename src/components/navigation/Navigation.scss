@@ -64,7 +64,7 @@
                 left: 50%;
                 filter: grayscale(100%);
                 transform: translate(-50%, -50%);
-                transition: width $animationTime, filter  $animationTime;
+                transition: width $animationTime, filter $animationTime;
             }
 
             @include isTablet {
@@ -82,6 +82,7 @@
             &.isActive {
                 pointer-events: none;
                 z-index: 5;
+
                 img {
                     filter: grayscale(0);
                 }
@@ -111,24 +112,38 @@
     }
 
     &-image-count {
-        font-family: "Luckiest Guy", serif;
-        font-size: 6rem;
-        text-shadow: .5rem .5rem .1rem rgb($black, .6);
+        font-size: 1.2rem;
         line-height: 1;
         color: $white;
-        opacity: .3;
+        background: rgb($black, .6);
+        opacity: 1;
         font-weight: 400;
         position: absolute;
-        padding: 0 2rem;
+        padding: .8rem 1.2rem;
         text-align: center;
-        top: 0;
-        right: 0;
-        border-bottom-left-radius: .4rem;
+        top: 1rem;
+        right: 1rem;
+        border-radius: 5rem;
         z-index: 6;
 
         @include isTablet {
-            font-size: 8rem;
+            font-size: 1.2rem;
         }
+    }
+
+    &-title {
+        font-size: 1.4rem;
+        white-space: nowrap;
+        color: $white;
+        font-weight: 700;
+        width: 0;
+        overflow: hidden;
+        text-align: right;
+        text-overflow: ellipsis;
+        text-shadow: 0 0 .5rem rgb($black, 1);
+        text-transform: uppercase;
+        transition: width .3s;
+        font-family: "Quicksand", sans-serif;
     }
 
     &-prev,
@@ -137,20 +152,43 @@
         top: 50%;
         left: .5rem;
         transform: translateY(-50%);
+        transition: all $animationTime;
         z-index: 7;
-        background: rgb($black, .3);
         padding: 1rem;
-        border-radius: 5rem;
+        border-radius: 10rem;
         outline: none;
         border: none;
-        width: auto;
+        width: 5rem;
+        height: 5rem;
         font-size: 3rem;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         color: $white;
-        transition: background $animationTime, color $animationTime;
+        overflow: hidden;
+        background-color: rgb($black, .6);
+        background-position: center;
+        background-size: 0;
+        background-repeat: no-repeat;
+        text-overflow: ellipsis;
+        &::after,
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        svg {
+            z-index: 2;
+            font-size: 3rem;
+            position: relative;
+            opacity: 1;
+            transition: all $animationTime;
+        }
 
         &.isDisabled {
             opacity: .5;
@@ -158,9 +196,28 @@
         }
 
         @include isTablet {
+            width: 8rem;
+            height: 8rem;
+
+            svg {
+                font-size: 4rem;
+            }
+
             &:hover {
-                background: rgb($black, .8);
+                animation: rapid-slide .5s .2s ease-in-out;
+                box-shadow: 0 0 .8rem rgb($black, .6);
                 color: $slideActive;
+                width: 26rem;
+                background-size: cover;
+                &::after,
+                &::before {
+                    background: linear-gradient(to right,  rgb($black, .6) 0%,rgba(0,0,0,0) 20%,rgba(0,0,0,0) 80%,rgb($black, .6) 100%);
+                }
+                
+                .slider__nav-title {
+                    width: 18rem;
+                    padding: 0 1rem;
+                }
             }
         }
     }
@@ -168,5 +225,36 @@
     &-next {
         left: auto;
         right: .5rem;
+
+        .slider__nav-title {
+            text-align: left;
+        }
+    }
+}
+
+
+@keyframes rapid-slide {
+    0% {
+        rotate: 0deg;
+    }
+
+    20% {
+        rotate: -5deg;
+    }
+
+    40% {
+        rotate: 5deg;
+    }
+
+    60% {
+        rotate: -2deg;
+    }
+
+    80% {
+        rotate: 2deg;
+    }
+
+    100% {
+        rotate: 0deg;
     }
 }

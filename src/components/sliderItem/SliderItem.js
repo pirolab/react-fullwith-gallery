@@ -34,12 +34,12 @@ const SliderItem = (props) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setDelayedSlide(currentSlide);
-            
+
         }, animationSpeed * 800);
-    
+
         return () => clearTimeout(timeout);
-    }, [currentSlide]);
-    
+    }, [currentSlide, animationSpeed]);
+
     if (!data[index]) return null;
 
     return (
@@ -64,7 +64,7 @@ const SliderItem = (props) => {
                 <div className="slider__item-content-wrapper">
                     <h2 className="slider__item-content-title">{title}</h2>
                     <h3 className="slider__item-content-subtitle">{subtitle}</h3>
-                    <p class="slider__item-content-description">{description}</p>
+                    <p className="slider__item-content-description">{description}</p>
                     <div className="slider__item-content-hash">
                         {tagsArray.map((tag) => (
                             <a

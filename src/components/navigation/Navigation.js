@@ -66,7 +66,7 @@ const Navigation = () => {
 
     useEffect(() => {
         const cleanupListner = scrollToSlide(currentSlide, refItem);
-    
+
         return cleanupListner;
     }, [currentSlide, refItem]);
 
@@ -130,7 +130,7 @@ const Navigation = () => {
                                 onClick={() => handleBullet(index)}
                             >
                                 <LazyLoadImage
-                                    src={item.leadImage}
+                                    src={item.thumbnail}
                                     alt={item.title}
                                     width={90}
                                     height={60}
@@ -143,7 +143,6 @@ const Navigation = () => {
                             style={{
                                 left: leftStyle,
                                 transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`,
-
                             }}
                         />
                     </ul>
@@ -152,15 +151,29 @@ const Navigation = () => {
             <button
                 className={`slider__nav-prev ${state.currentSlide === 0 ? 'isDisabled' : ''}`}
                 onClick={handlePrev}
-                disabled={state.currentSlide === 0 ? true : false}
+                disabled={state.currentSlide === 0}
+                style={{
+                    backgroundImage: `url(${state.currentSlide > 0 ? data[currentSlide - 1].thumbnail : ''})`,
+                }}
             >
                 <TiArrowLeft />
+                {state.currentSlide > 0 && (
+                    <h4 className='slider__nav-title'> {data[currentSlide - 1].title }</h4>
+                )}
+
+                
             </button>
             <button
                 className={`slider__nav-next ${state.currentSlide === state.data.length - 1 ? 'isDisabled' : ''}`}
                 onClick={handleNext}
-                disabled={state.currentSlide === state.data.length - 1 ? true : false}
+                disabled={state.currentSlide === state.data.length - 1}
+                style={{
+                    backgroundImage: `url(${state.currentSlide < data.length - 1 ? data[currentSlide + 1].thumbnail : ''})`,
+                }}
             >
+                {state.currentSlide < data.length - 1 && (
+                    <h4 className='slider__nav-title'>{data[currentSlide + 1].title }</h4>
+                )}
                 <TiArrowRight />
             </button>
         </>
