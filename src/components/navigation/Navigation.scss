@@ -142,8 +142,8 @@
         text-overflow: ellipsis;
         text-shadow: 0 0 .5rem rgb($black, 1);
         text-transform: uppercase;
-        transition: width .3s;
         font-family: "Quicksand", sans-serif;
+        opacity: 0;
     }
 
     &-prev,
@@ -204,7 +204,6 @@
             }
 
             &:hover {
-                animation: rapid-slide .5s .2s ease-in-out;
                 box-shadow: 0 0 .8rem rgb($black, .6);
                 color: $slideActive;
                 width: 26rem;
@@ -217,6 +216,8 @@
                 .slider__nav-title {
                     width: 18rem;
                     padding: 0 1rem;
+                    opacity: 1;
+                    transition: all .3s .3s;
                 }
             }
         }
@@ -229,32 +230,5 @@
         .slider__nav-title {
             text-align: left;
         }
-    }
-}
-
-
-@keyframes rapid-slide {
-    0% {
-        rotate: 0deg;
-    }
-
-    20% {
-        rotate: -5deg;
-    }
-
-    40% {
-        rotate: 5deg;
-    }
-
-    60% {
-        rotate: -2deg;
-    }
-
-    80% {
-        rotate: 2deg;
-    }
-
-    100% {
-        rotate: 0deg;
     }
 }
