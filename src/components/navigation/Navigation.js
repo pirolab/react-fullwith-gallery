@@ -152,10 +152,13 @@ const Navigation = () => {
                 className={`slider__nav-prev ${state.currentSlide === 0 ? 'isDisabled' : ''}`}
                 onClick={handlePrev}
                 disabled={state.currentSlide === 0}
-                style={{
-                    backgroundImage: `url(${state.currentSlide > 0 ? data[currentSlide - 1].thumbnail : ''})`,
-                }}
             >
+                <img   
+                    alt="image" 
+                    className='slider__nav-image' 
+                    src={state.currentSlide > 0 ? data[currentSlide - 1].thumbnail : data[currentSlide]?.thumbnail} 
+                />
+
                 <TiArrowLeft />
                 {state.currentSlide > 0 && (
                     <h4 className='slider__nav-title'> {data[currentSlide - 1].title }</h4>
@@ -167,10 +170,13 @@ const Navigation = () => {
                 className={`slider__nav-next ${state.currentSlide === state.data.length - 1 ? 'isDisabled' : ''}`}
                 onClick={handleNext}
                 disabled={state.currentSlide === state.data.length - 1}
-                style={{
-                    backgroundImage: `url(${state.currentSlide < data.length - 1 ? data[currentSlide + 1].thumbnail : ''})`,
-                }}
             >
+                <img   
+                    alt="image" 
+                    className='slider__nav-image' 
+                    src={state.currentSlide < data.length - 1 ? data[currentSlide + 1].thumbnail : data[currentSlide]?.thumbnail} 
+                />
+                
                 {state.currentSlide < data.length - 1 && (
                     <h4 className='slider__nav-title'>{data[currentSlide + 1].title }</h4>
                 )}
