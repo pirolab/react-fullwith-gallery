@@ -28,22 +28,18 @@ export const getScrollOffset = (parent, child) => {
 };
 
 
-export const calculateStyles = (ref, currentSlide, dataLength) => {
+export const calculateStyles = (ref, dataLength) => {
     if (ref && ref.current) {
         const computedStyle = window.getComputedStyle(ref.current);
         const gap = parseFloat(computedStyle.gap || 0);
-        const offsetLeft = parseFloat(computedStyle.paddingLeft || 0);
 
         const firstLi = ref.current.children[1];
         if (firstLi) {
             const liWidth = parseFloat(window.getComputedStyle(firstLi).width || 0);
-            return {
-                maxWidth: (liWidth + gap) * dataLength + 10,
-                leftStyle: `${currentSlide * (liWidth + gap) + offsetLeft}px`
-            };
+            return { maxWidth: (liWidth + gap) * dataLength + 10};
         }
     }
-    return { maxWidth: 0, leftStyle: '0px' };
+    return { maxWidth: 0 };
 };
 
 export const scrollToSlide = (index, refItem) => {

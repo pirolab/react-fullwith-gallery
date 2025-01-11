@@ -1,26 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
 import { LazyLoadImage } from "react-lazy-load-image-component";
-
 import { useSliderContext } from '../../context/sliderContext';
 import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
+import { FaCheck } from "react-icons/fa";
+
 import {
-    calculateAnimationSpeed,
     getScrollOffset,
     calculateStyles,
     scrollToSlide,
     useResizeScroll
 } from '../../helpers/helpers';
-import { TIMEOUT_FACTOR } from '../../constants/constants';
 
 import './Navigation.scss';
 
 const Navigation = () => {
     const { state, dispatch } = useSliderContext();
-    const { data, currentSlide, eventType, limit } = state;
+    const { data, currentSlide } = state;
     const refItem = useRef(null);
-    const animationSpeed = calculateAnimationSpeed(eventType, (limit / 2.5));
-    const [isDelayedActive, setIsDelayedActive] = useState(true);
-    const [leftStyle, setLeftStyle] = useState(0);
     const [maxWidth, setMaxWidth] = useState(0);
 
     const handleNext = () => {
@@ -33,7 +29,9 @@ const Navigation = () => {
         const nextIndex = Math.min(currentSlide + 1, refItem.current.children.length - 1);
         scrollToSlide(nextIndex, refItem);
     };
+
     useResizeScroll(refItem, currentSlide);
+
     const handlePrev = () => {
         dispatch({
             type: 'PREV',
@@ -54,7 +52,6 @@ const Navigation = () => {
             limit: Math.abs(currentSlide - index),
             eventType: 'thumb'
         });
-        setIsDelayedActive(false);
 
         if (refItem.current) {
             const targetChild = refItem.current.children[index];
@@ -66,18 +63,9 @@ const Navigation = () => {
 
     useEffect(() => {
         const cleanupListner = scrollToSlide(currentSlide, refItem);
-
         return cleanupListner;
     }, [currentSlide, refItem]);
 
-    useEffect(() => {
-        const timeoutDuration = animationSpeed * TIMEOUT_FACTOR;
-        const timer = setTimeout(() => {
-            setIsDelayedActive(true);
-        }, timeoutDuration);
-
-        return () => clearTimeout(timer);
-    }, [currentSlide, animationSpeed]);
 
     useEffect(() => {
         const handleWheel = (e) => {
@@ -107,9 +95,8 @@ const Navigation = () => {
     }, [maxWidth, data.length]);
 
     useEffect(() => {
-        const { maxWidth, leftStyle } = calculateStyles(refItem, currentSlide, data.length);
+        const { maxWidth } = calculateStyles(refItem, currentSlide, data.length);
         setMaxWidth(maxWidth);
-        setLeftStyle(leftStyle);
     }, [currentSlide, data.length]);
 
     return (
@@ -123,10 +110,7 @@ const Navigation = () => {
                                 tabIndex={0}
                                 role="button"
                                 aria-label={`Navigate to slide ${index + 1}`}
-                                className={
-                                    'slider__nav-thumbs-item ' +
-                                    (isDelayedActive && index === currentSlide ? 'isActive' : '')
-                                }
+                                className={`slider__nav-thumbs-item ${index === currentSlide ? 'isActive' : ''}`}
                                 onClick={() => handleBullet(index)}
                             >
                                 <LazyLoadImage
@@ -134,17 +118,14 @@ const Navigation = () => {
                                     alt={item.title}
                                     width={90}
                                     height={60}
-                                    placeholder={<span className="slider__loader slider__loader--small"><b>loading...</b></span>}
+                                    placeholder={<span className='slider__loader slider__loader--small'><b>loading...</b></span>}
                                     className="slider__nav-thumbs-item-image"
                                 />
+                                { index === currentSlide &&
+                                    <FaCheck />
+                                }
                             </li>
                         ))}
-                        <li className='slider__nav-thumbs-item isProgress'
-                            style={{
-                                left: leftStyle,
-                                transition: `left ${animationSpeed}s cubic-bezier(0.25, 1, 0.5, 1)`,
-                            }}
-                        />
                     </ul>
                 </div>
             )}
@@ -154,7 +135,7 @@ const Navigation = () => {
                 disabled={state.currentSlide === 0}
             >
                 <img   
-                    alt="image" 
+                    alt="prev slide" 
                     className='slider__nav-image' 
                     src={state.currentSlide > 0 ? data[currentSlide - 1].thumbnail : data[currentSlide]?.thumbnail} 
                 />
@@ -172,7 +153,7 @@ const Navigation = () => {
                 disabled={state.currentSlide === state.data.length - 1}
             >
                 <img   
-                    alt="image" 
+                    alt="next slide" 
                     className='slider__nav-image' 
                     src={state.currentSlide < data.length - 1 ? data[currentSlide + 1].thumbnail : data[currentSlide]?.thumbnail} 
                 />

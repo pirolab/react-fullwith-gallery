@@ -76,7 +76,7 @@ $animationDelay: 0;
         z-index: 4;
         padding-bottom: 3rem;
         transition: opacity .6s;
-        transition-delay: .6s;
+        transition-delay: .3s;
         opacity: 0;
 
         @include isTablet {

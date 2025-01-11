@@ -3,12 +3,15 @@
 @use '../../sass/animations' as *;
 
 .slider__nav {
-    $thumbHeight: 5.5rem;
+    $thumbHeight: 6rem;
+    $thumbWidth: 12rem;
     $height: calc($thumbHeight + 3rem);
     $animationTime: .4s;
-    $bRradius: .3rem;
+    $bRradius: 5rem;
     position: absolute;
-    width: 100vw;
+    width: 100%;
+    max-width: 134rem;
+    overflow: hidden;
     height: $height;
     bottom: - calc($height / 2);
     left: 50%;
@@ -25,7 +28,8 @@
         max-width: 100vw;
         margin: 0;
         display: flex;
-        gap: 0.5rem;
+        justify-content: center;
+        gap: .5rem;
         padding: 1.5rem 1.5rem;
         overflow-x: scroll;
         scrollbar-width: none;
@@ -35,8 +39,8 @@
         animation: fade-in 1s ease-out 1s forwards;
 
         @include isTablet {
-            max-width: calc(99vw - 0.5rem);
-            justify-content: flex-start;
+            width: 100%;
+            max-width: 134rem;
         }
 
         &::-webkit-scrollbar {
@@ -45,17 +49,30 @@
 
         &-item {
             position: relative;
-            width: 9rem;
+            width:  $thumbWidth;
             height: $thumbHeight;
-            flex: 0 0 9rem;
+            flex: 0 0 $thumbWidth;
             z-index: 1;
             background-color: $black;
             box-shadow: 0 0 0.4rem -0.1rem rgb($black, 0.8), 0 1.3rem 1rem -1rem rgb($black, 0.5);
             cursor: pointer;
-            transition: transform $animationTime;
+            transition: all $animationTime;
             border-radius: $bRradius;
             overflow: hidden;
-
+            & svg {
+                position: absolute;
+                background: rgb($black, .8);
+                transition: opacity .6s;
+                border-radius: 5rem;
+                padding: .6rem;
+                width: 2.6rem;
+                height: 2.6rem;
+                top: .8rem;
+                right: .8rem;
+                color: rgb($slideActive, .8);
+                opacity: 0;
+                animation: fade-in .5s ease-out .5s forwards;
+            }
             &-image {
                 width: 120%;
                 height: auto;
@@ -69,11 +86,10 @@
 
             @include isTablet {
                 &:hover:not(.isProgress) {
-                    transform: scale(1.2) translateY(-.4rem);
                     z-index: 7;
-
+                    scale: 1.1;
                     img {
-                        width: 150%;
+                        width: 180%;
                         filter: grayscale(0);
                     }
                 }
@@ -82,35 +98,14 @@
             &.isActive {
                 pointer-events: none;
                 z-index: 5;
-
                 img {
+                    width: 180%;
                     filter: grayscale(0);
-                }
-            }
-
-            &.isProgress {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%) scaleY(1.02);
-                left: 0;
-                z-index: 8;
-                box-shadow: none;
-                background: none;
-                cursor: auto;
-
-                &::after {
-                    content: '';
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    transition: all .4s;
-                    background: rgb($slideActive, .4);
-                    border-radius: $bRradius;
                 }
             }
         }
     }
-
+    
     &-image-count {
         font-size: 1.2rem;
         line-height: 1;
