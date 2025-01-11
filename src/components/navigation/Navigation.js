@@ -18,6 +18,7 @@ const Navigation = () => {
     const { data, currentSlide } = state;
     const refItem = useRef(null);
     const [maxWidth, setMaxWidth] = useState(0);
+    const [thumbsAlign, setTthumbsAlign] = useState('');
 
     const handleNext = () => {
         dispatch({
@@ -60,6 +61,28 @@ const Navigation = () => {
             }
         }
     };
+
+    const updateThumbsAlignment = () => {
+        if (!refItem.current) return;
+        const navThumbs = refItem.current;
+        const navThumbsWidth = navThumbs.offsetWidth;
+        const childrenCount = navThumbs.children.length;
+        const gap = 5;
+        const itemWidth = 120;
+        const itemsWidth = (itemWidth * childrenCount) + (gap * (childrenCount - 1));
+        itemsWidth > navThumbsWidth ? setTthumbsAlign('flex-start') :  setTthumbsAlign('');    
+    };
+
+    useEffect(() => {
+        const handleResize = () => {
+            updateThumbsAlignment();
+        };
+        updateThumbsAlignment();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [data.length]); 
 
     useEffect(() => {
         const cleanupListner = scrollToSlide(currentSlide, refItem);
@@ -104,7 +127,7 @@ const Navigation = () => {
             <span className="slider__nav-image-count">{currentSlide + 1}</span>
             {data && (
                 <div className="slider__nav">
-                    <ul className="slider__nav-thumbs" ref={refItem}>
+                    <ul className={`slider__nav-thumbs ${thumbsAlign}`} ref={refItem}>
                         {data.map((item, index) => (
                             <li key={index}
                                 tabIndex={0}

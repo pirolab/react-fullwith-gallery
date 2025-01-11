@@ -37,6 +37,9 @@
         scroll-behavior: smooth;
         opacity: 0;
         animation: fade-in 1s ease-out 1s forwards;
+        &.flex-start {
+            justify-content: flex-start;
+        }
 
         @include isTablet {
             width: 100%;
