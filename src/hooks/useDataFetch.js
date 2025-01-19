@@ -14,20 +14,20 @@ export const useDataFetch = (url) => {
                 'Access-Control-Allow-Origin': '*',
             }
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setData(data);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                setError(error);
-                setIsLoading(false);
-            });
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            setData(data);
+            setIsLoading(false);
+        })
+        .catch((error) => {
+            setError(error);
+            setIsLoading(false);
+        });
 
         return () => {
             setIsLoading(false);
