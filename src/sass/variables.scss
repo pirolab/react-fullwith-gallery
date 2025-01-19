@@ -1,19 +1,12 @@
 // COLORS
-$main_backgroud : #000000;
-$nav_bg : #ffffff7e;
-$link_hover : #8ecae6;
-$slideActive : #ffb703;
-$loader: white;
 $white : white;
 $black :black;
+$main_backgroud : $black;
+$link_hover : #8ecae6;
+$slider_active : #ffb703;
+$loader: $white;
 
 // ANIMATION TIMING
 $duration : 1.6180339887s;
 $easeInOutBack :cubic-bezier(0, .4, .65, .34);
 $easeInOutCirc :cubic-bezier(0.7, 0.1, 0.1, 0.8);
-
-// SLIDER HEIGHT (px, em, rem)
-$slider_height: 80vh;
-$slider_min-height: 55rem;
-$slider_height_mobile: 60svh;
-$slider_min-height_mobile: 35rem;

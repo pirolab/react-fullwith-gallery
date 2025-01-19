@@ -124,7 +124,7 @@ const Navigation = () => {
 
     return (
         <>
-            <span className="slider__nav-image-count">{currentSlide + 1}</span>
+            <span className="slider__nav-items-count">{currentSlide + 1}</span>
             {data && (
                 <div className="slider__nav">
                     <ul className={`slider__nav-thumbs ${thumbsAlign}`} ref={refItem}>
@@ -144,9 +144,7 @@ const Navigation = () => {
                                     placeholder={<span className='slider__loader slider__loader--small'><b>loading...</b></span>}
                                     className="slider__nav-thumbs-item-image"
                                 />
-                                { index === currentSlide &&
-                                    <FaCheck />
-                                }
+                                { index === currentSlide && <FaCheck /> }
                             </li>
                         ))}
                     </ul>

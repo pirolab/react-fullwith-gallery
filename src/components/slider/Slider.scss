@@ -3,6 +3,7 @@
 @use '../../sass/animations' as *;
 
 :root {
+    --slider-max-width: 100%;
     --slider-height-mobile: 40svh;
     --slider-min-height-mobile: 30rem;
     --slider-height: 80vh;
@@ -32,6 +33,7 @@
     margin: 0 auto;
     background: $main_backgroud;
     width: 100%;
+    max-width: var(--slider-max-width);
     margin-bottom: 5rem;
 
     &__wrapper {

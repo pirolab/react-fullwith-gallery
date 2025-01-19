@@ -12,10 +12,12 @@ export const TIMEOUT_FACTOR = 800;
  * Height & min-height of the slideshow
  */
 export const LAYOUT_SIZE_CONFIG = {
+    maxWidth: '100%',
     height: '80vh',
     minHeight: '60rem',
-    heightMobile: '90svh',
-    minHeightMobile: '30rem'
+    heightMobile: '60svh',
+    minHeightMobile: '30rem',
+    borderRadius: '10rem'
 }
 
 /**

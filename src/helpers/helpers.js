@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export const calculateAnimationSpeed = (eventType, limit) => {
     return eventType === 'thumb'
         ? 0.6 + (Number(limit) / 10) * 4
-        : 1;
+        : 0.6;
 };
 export const getBgPositionX = (index, current, offset, limit) => {
     if (limit) return 'center';
@@ -18,7 +18,7 @@ export const getTransitionTime = (index, current, isDragging) => {
         ? 'none'
         : `all 0.6s ${index === current && !isDragging
             ? '0.1s'
-            : '1s'}`
+            : '0.6s'}`
 };
 
 export const getScrollOffset = (parent, child) => {

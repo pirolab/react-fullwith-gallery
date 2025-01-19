@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { useDataFetch } from '../hooks/';
 import { LAYOUT_SIZE_CONFIG } from '../constants/constants';
+import { URL } from '../constants/constants';
 
 const SliderContext = createContext();
+const url = URL;
 
 export const useSliderContext = () => useContext(SliderContext);
 
@@ -42,7 +44,7 @@ const sliderReducer = (state, action) => {
     }
 };
 
-export const SliderProvider = ({ children, url }) => {
+export const SliderProvider = ({ children }) => {
     const { data, error, isLoading } = useDataFetch(url);
 
     const initialState = {

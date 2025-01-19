@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from './components/slider/Slider';
 import homeContent from './mock/homeContent';
+import { SliderProvider } from './context/sliderContext';
 
 const App = () => {
     return (
@@ -12,7 +13,9 @@ const App = () => {
                     </svg>
                     <span>Fork Me On Github</span>
                 </a>
-                <Slider />
+                <SliderProvider>
+                    <Slider />
+                </SliderProvider>
             </div>
             <div className='slider__doc'>
                 {homeContent.map((section, index) => (
