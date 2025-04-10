@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSliderContext } from '../../context/sliderContext';
 import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
-import { FaCheck } from "react-icons/fa";
 
 import {
     getScrollOffset,
@@ -135,6 +134,7 @@ const Navigation = () => {
                                 aria-label={`Navigate to slide ${index + 1}`}
                                 className={`slider__nav-thumbs-item ${index === currentSlide ? 'isActive' : ''}`}
                                 onClick={() => handleBullet(index)}
+                                data-current={index+1}
                             >
                                 <LazyLoadImage
                                     src={item.thumbnail}
@@ -144,7 +144,6 @@ const Navigation = () => {
                                     placeholder={<span className='slider__loader slider__loader--small'><b>loading...</b></span>}
                                     className="slider__nav-thumbs-item-image"
                                 />
-                                { index === currentSlide && <FaCheck /> }
                             </li>
                         ))}
                     </ul>

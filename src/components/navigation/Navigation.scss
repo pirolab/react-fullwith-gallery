@@ -67,20 +67,22 @@
             transition: all $animationTime;
             border-radius: $bRradius;
             overflow: hidden;
-            & svg {
+            &::after {
+                content: '';
                 position: absolute;
-                background: rgb($slider_active, .6);
-                transition: opacity .6s;
-                border-radius: $bRradius;
-                padding: .5rem;
-                width: 2.2rem;
-                height: 2.2rem;
-                top: .8rem;
-                right: .8rem;
-                color: rgb($black, .6);
+                width: 0;
+                height: 0;
+                top: 50%;
+                left: 50%;
+                z-index: 2;
+                background: rgb($slider_active, 0.3);
+                //border: .3rem solid rgb($slider_active, 0.6);
+                border-radius: var(--slider-border-radius);
+                transition: all 0.3s .1s;
+                transform: translate(-50%, -50%);
                 opacity: 0;
-                animation: fade-in .8s .5s forwards;
             }
+
             &-image {
                 width: 120%;
                 height: auto;
@@ -108,7 +110,12 @@
 
             &.isActive {
                 pointer-events: none;
-                img {
+                &::after {
+                    width: calc(100% - 1rem);
+                    opacity: 1;
+                    height: calc(100% - 1rem);
+                }
+                & img {
                     width: 180%;
                     filter: grayscale(0);
                 }
